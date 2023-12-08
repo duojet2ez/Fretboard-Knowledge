@@ -4,11 +4,13 @@ body{
 }
 
 h1{
-    font-size: 48px;
+    font-size: 70px;
 }
 h2{
-    font-size: 40px;
-    text-align: center;
+    font-size: 55px;
+    display: inline-block;
+    margin-right: 100px;
+    margin-left: 100px;
 }
 
 .container {
@@ -16,5 +18,5 @@ h2{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 30vh;
+    min-height: 50vh; /* Set a minimum height to ensure all content is visible */
   }
