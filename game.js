@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const increment = document.getElementById('increment');
     const stringValue = document.getElementById('num');
     const noteValue = document.getElementById('note'); 
+    const time = document.getElementById('currTime'); 
     let score = 0; 
+    let timerVal = 5; 
 
     function setRandStringNote(){
         let randNoteIndex = Math.floor(Math.random() * (17)); 
@@ -13,6 +15,15 @@ document.addEventListener('DOMContentLoaded', function(){
         stringValue.innerHTML = strings[randStringIndex];
         noteValue.innerHTML = notes[randNoteIndex];
     }
+
+    function reduceTime(){
+        timerVal--; 
+        time.innerHTML = timerVal; 
+        if(timerVal === 0){
+            timerVal = 5; 
+        }
+    }
+    setInterval(reduceTime, 1000); 
     setRandStringNote();
 
     increment.addEventListener('click', function(){
