@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function(){
     function reduceTime(){
         timerVal--; 
         time.innerHTML = timerVal; 
-        if(timerVal === 0){
-            timerVal = 5; 
+        if(timerVal === 1){
+            timerVal = 6; 
         }
     }
     setInterval(reduceTime, 1000); 
