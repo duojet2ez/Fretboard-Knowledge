@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const stringValue = document.getElementById('num');
     const noteValue = document.getElementById('note'); 
     const time = document.getElementById('currTime'); 
+    const start = document.getElementById('start');
     let score = 0; 
     let timerVal = 5; 
 
@@ -23,8 +24,14 @@ document.addEventListener('DOMContentLoaded', function(){
             timerVal = 6; 
         }
     }
-    setInterval(reduceTime, 1000); 
-    setRandStringNote();
+
+    
+   
+    function startGame(){
+        setRandStringNote();
+        setInterval(reduceTime, 1000); 
+    }
+    start.addEventListener('click', startGame); 
 
     increment.addEventListener('click', function(){
         score+=5; 
