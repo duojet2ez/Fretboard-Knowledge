@@ -7,14 +7,17 @@ document.addEventListener('DOMContentLoaded', function(){
     const noteValue = document.getElementById('note'); 
     const time = document.getElementById('currTime'); 
     const start = document.getElementById('start');
+    const text = document.getElementById('text'); 
     let score = 0; 
     let timerVal = 5; 
+    let started = false; 
 
     function setRandStringNote(){
         let randNoteIndex = Math.floor(Math.random() * (17)); 
         let randStringIndex = Math.floor(Math.random() * (6)); 
-        stringValue.innerHTML = strings[randStringIndex];
-        noteValue.innerHTML = notes[randNoteIndex];
+        let stringValue = strings[randStringIndex];
+        let noteValue = notes[randNoteIndex];
+        text.innerHTML = `${noteValue} on the ${stringValue} string`; 
     }
 
     function reduceTime(){
@@ -24,12 +27,15 @@ document.addEventListener('DOMContentLoaded', function(){
             timerVal = 6; 
         }
     }
-
-    
    
     function startGame(){
-        setRandStringNote();
-        setInterval(reduceTime, 1000); 
+        if(started) return;
+        else{
+            started = true;
+            setRandStringNote();
+            setInterval(reduceTime, 1000);    
+        }
+
     }
     start.addEventListener('click', startGame); 
 
@@ -38,6 +44,5 @@ document.addEventListener('DOMContentLoaded', function(){
         scoreElement.innerHTML = score;
         setRandStringNote();
     });
-    
 })
 
