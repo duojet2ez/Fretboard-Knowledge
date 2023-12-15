@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let score = 0; 
     let timerVal = 5; 
     let started = false; 
+    let clearTimer; 
 
     function setRandStringNote(){
         let randNoteIndex = Math.floor(Math.random() * (17)); 
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function(){
         else{
             started = true;
             setRandStringNote();
-            setInterval(reduceTime, 1000);    
+           clearTimer = setInterval(reduceTime, 1000);    
         }
 
     }
@@ -43,6 +44,9 @@ document.addEventListener('DOMContentLoaded', function(){
         score+=5; 
         scoreElement.innerHTML = score;
         setRandStringNote();
+        clearInterval(clearTimer); 
+        timerVal = 5; time.innerHTML = timerVal; 
+        clearTimer = setInterval(reduceTime, 1000); //should reset timer and start again
     });
 })
 
