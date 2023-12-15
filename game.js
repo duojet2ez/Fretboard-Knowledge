@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const time = document.getElementById('currTime'); 
     const start = document.getElementById('start');
     const text = document.getElementById('text'); 
+    const incorrect = document.getElementById('incorrect'); 
     let score = 0; 
     let timerVal = 5; 
     let started = false; 
@@ -28,6 +29,12 @@ document.addEventListener('DOMContentLoaded', function(){
             timerVal = 6; 
         }
     }
+    function nextNoteAndResetTime(){
+        setRandStringNote();
+        clearInterval(clearTimer); 
+        timerVal = 5; time.innerHTML = timerVal; 
+        clearTimer = setInterval(reduceTime, 1000);
+    }
    
     function startGame(){
         if(started) return;
@@ -43,10 +50,8 @@ document.addEventListener('DOMContentLoaded', function(){
     increment.addEventListener('click', function(){
         score+=5; 
         scoreElement.innerHTML = score;
-        setRandStringNote();
-        clearInterval(clearTimer); 
-        timerVal = 5; time.innerHTML = timerVal; 
-        clearTimer = setInterval(reduceTime, 1000); //should reset timer and start again
+        nextNoteAndResetTime(); 
     });
+    incorrect.addEventListener('click', nextNoteAndResetTime); 
 })
 
