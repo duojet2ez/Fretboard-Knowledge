@@ -9,10 +9,14 @@ document.addEventListener('DOMContentLoaded', function(){
     const start = document.getElementById('start');
     const text = document.getElementById('text'); 
     const incorrect = document.getElementById('incorrect'); 
+    const globalClock = document.getElementById('global-clock');
+
     let score = 0; 
     let timerVal = 5; 
+    let globalClockVal = 6; 
     let started = false; 
     let clearTimer; 
+    let clearGlobalTimer;
 
     function setRandStringNote(){
         let randNoteIndex = Math.floor(Math.random() * (17)); 
@@ -29,6 +33,16 @@ document.addEventListener('DOMContentLoaded', function(){
             timerVal = 6; 
         }
     }
+
+    function reduceGlobalClock(){
+        globalClockVal--;
+        globalClock.innerHTML = globalClockVal;
+        if(globalClockVal == 1){
+            console.log('end'); 
+            clearInterval(clearGlobalTimer);
+        }
+    }
+
     function nextNoteAndResetTime(){
         setRandStringNote();
         clearInterval(clearTimer); 
@@ -40,6 +54,8 @@ document.addEventListener('DOMContentLoaded', function(){
         if(started) return;
         else{
             started = true;
+            globalClock.innerHTML = globalClockVal;
+            clearGlobalTimer = setInterval(reduceGlobalClock, 1000); 
             setRandStringNote();
            clearTimer = setInterval(reduceTime, 1000);    
         }

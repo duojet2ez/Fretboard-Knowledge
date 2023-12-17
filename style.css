@@ -13,6 +13,21 @@ h2{
     margin-left: 100px;
 }
 
+
+#increment,
+#incorrect,
+#start {
+    background-color: #636967; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 20px; /* Add vertical space between buttons */
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -20,3 +35,18 @@ h2{
     align-items: center;
     min-height: 50vh; /* Set a minimum height to ensure all content is visible */
   }
+
+
+  .window {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    outline-style: dotted;
+}
