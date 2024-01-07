@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const text = document.getElementById('text'); 
     const incorrect = document.getElementById('incorrect'); 
     const globalClock = document.getElementById('global-clock');
+    const scoreWindow = document.querySelector('.window');
 
     let score = 0; 
     let timerVal = 5; 
@@ -34,20 +35,40 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+ 
+
+    function setScoreWindow(){
+        scoreWindow.style.display = 'block';
+    }
+
+    function endGame(){
+        setScoreWindow(); 
+        clearInterval(clearTimer); //end the local timer 
+        //report score to user 
+        //give user an option to retry
+    }
+
     function reduceGlobalClock(){
         globalClockVal--;
         globalClock.innerHTML = globalClockVal;
         if(globalClockVal == 1){
             console.log('end'); 
             clearInterval(clearGlobalTimer);
+            endGame();
         }
     }
 
+
+
     function nextNoteAndResetTime(){
-        setRandStringNote();
-        clearInterval(clearTimer); 
-        timerVal = 5; time.innerHTML = timerVal; 
-        clearTimer = setInterval(reduceTime, 1000);
+        //if game has started 
+        if(started){
+            setRandStringNote();
+            clearInterval(clearTimer); 
+            timerVal = 5; time.innerHTML = timerVal; 
+            clearTimer = setInterval(reduceTime, 1000);
+        }
+
     }
    
     function startGame(){
@@ -64,9 +85,12 @@ document.addEventListener('DOMContentLoaded', function(){
     start.addEventListener('click', startGame); 
 
     increment.addEventListener('click', function(){
-        score+=5; 
-        scoreElement.innerHTML = score;
-        nextNoteAndResetTime(); 
+        if(started){
+            score+=5; 
+            scoreElement.innerHTML = score;
+            nextNoteAndResetTime(); 
+        }
+
     });
     incorrect.addEventListener('click', nextNoteAndResetTime); 
 })
