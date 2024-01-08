@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     increment.addEventListener('click', function(){
         if(started){
+            //increment update score in html 
             score+=5; 
             scoreElement.innerHTML = score;
             nextNoteAndResetTime(); 
