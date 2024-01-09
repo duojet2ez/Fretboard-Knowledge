@@ -38,7 +38,10 @@ h2{
 
 
   .window {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -50,4 +53,17 @@ h2{
     z-index: 9999;
     width: 800px;
     height: 600px;
+}
+
+.game_over {
+    font-size: 50px;
+    text-align: center;
+    margin: 0;
+    margin-top: -20px; /* Adjust this value to bring it closer to the top */
+}
+
+.score_text {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 10px; /* Adjust this value for spacing between "Game Over!" and "Your Score:" */
 }
