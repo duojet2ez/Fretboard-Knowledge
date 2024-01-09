@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const incorrect = document.getElementById('incorrect'); 
     const globalClock = document.getElementById('global-clock');
     const scoreWindow = document.querySelector('.window');
+    const yourScoreText = document.querySelector('.score_text'); 
 
     let score = 0; 
     let timerVal = 5; 
@@ -38,13 +39,14 @@ document.addEventListener('DOMContentLoaded', function(){
  
 
     function setScoreWindow(){
-        scoreWindow.style.display = 'block';
+        scoreWindow.style.display = 'flex';
     }
 
     function endGame(){
         setScoreWindow(); 
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
+        yourScoreText.innerHTML='Your Score: 100';
         //give user an option to retry
     }
 
