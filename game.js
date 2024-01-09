@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function(){
         setScoreWindow(); 
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
-        yourScoreText.innerHTML='Your Score: 100';
+        yourScoreText.innerHTML=`Your Score: ${score}`;
         //give user an option to retry
     }
 
