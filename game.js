@@ -12,13 +12,16 @@ document.addEventListener('DOMContentLoaded', function(){
     const globalClock = document.getElementById('global-clock');
     const scoreWindow = document.querySelector('.window');
     const yourScoreText = document.querySelector('.score_text'); 
+    const playAgain = document.getElementById('pAgain');
 
     let score = 0; 
     let timerVal = 5; 
-    let globalClockVal = 60; 
+    let globalClockVal = 2; 
     let started = false; 
     let clearTimer; 
     let clearGlobalTimer;
+
+
 
     function setRandStringNote(){
         let randNoteIndex = Math.floor(Math.random() * (17)); 
@@ -39,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function setScoreWindow(){
         scoreWindow.style.display = 'flex';
+    }
+    function removeScoreWindow(){
+        scoreWindow.style.display = 'none';
     }
 
     function endGame(){
@@ -81,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function(){
             setRandStringNote();
            clearTimer = setInterval(reduceTime, 1000);    
         }
-
     }
+
     start.addEventListener('click', startGame); 
 
     increment.addEventListener('click', function(){
@@ -95,5 +101,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
     });
     incorrect.addEventListener('click', nextNoteAndResetTime); 
+    playAgain.addEventListener('click', () =>{
+        started = false; 
+        removeScoreWindow(); 
+        score = 0; 
+        startGame();
+    });
 })
 
