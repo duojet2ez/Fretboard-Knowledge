@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     let score = 0; 
     let timerVal = 5; 
-    let globalClockVal = 6; 
+    let globalClockVal = 60; 
     let started = false; 
     let clearTimer; 
     let clearGlobalTimer;
