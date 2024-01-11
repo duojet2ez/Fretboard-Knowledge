@@ -31,12 +31,11 @@ document.addEventListener('DOMContentLoaded', function(){
     function reduceTime(){
         timerVal--; 
         time.innerHTML = timerVal; 
-        if(timerVal === 1){
+        if(timerVal === 0){
             timerVal = 6; 
+            nextNoteAndResetTime();
         }
     }
-
- 
 
     function setScoreWindow(){
         scoreWindow.style.display = 'flex';
