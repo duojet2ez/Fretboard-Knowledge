@@ -1,2 +1,0 @@
-- clicking 'correct'or 'incorrect' starts the clock and game. Only clicking start should do that 
-- when local timer runs out needs automatically switch 
