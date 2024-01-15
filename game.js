@@ -14,9 +14,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const yourScoreText = document.querySelector('.score_text'); 
     const playAgain = document.getElementById('pAgain');
 
-    let score = 0; 
-    let timerVal = 5; 
-    let globalClockVal = 2; 
+    let score; 
+    const setTimerVal = 5; 
+    let timerVal = setTimerVal; 
+    const setGlobalClockVal = 10;
+    let globalClockVal = setGlobalClockVal; 
     let started = false; 
     let clearTimer; 
     let clearGlobalTimer;
@@ -52,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function(){
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
         yourScoreText.innerHTML=`Your Score: ${score}`;
-        //give user an option to retry
+        //reset local timer
+        timerVal = setTimerVal; time.innerHTML = timerVal; 
     }
 
     function reduceGlobalClock(){
@@ -72,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if(started){
             setRandStringNote();
             clearInterval(clearTimer); 
-            timerVal = 5; time.innerHTML = timerVal; 
+            timerVal = setTimerVal; time.innerHTML = timerVal; 
             clearTimer = setInterval(reduceTime, 1000);
         }
 
@@ -82,10 +85,12 @@ document.addEventListener('DOMContentLoaded', function(){
         if(started) return;
         else{
             started = true;
+            score = 0;
             globalClock.innerHTML = globalClockVal;
-            clearGlobalTimer = setInterval(reduceGlobalClock, 1000); 
+
             setRandStringNote();
-           clearTimer = setInterval(reduceTime, 1000);    
+            clearGlobalTimer = setInterval(reduceGlobalClock, 1000); 
+            clearTimer = setInterval(reduceTime, 1000);    
         }
     }
 
@@ -98,13 +103,15 @@ document.addEventListener('DOMContentLoaded', function(){
             scoreElement.innerHTML = score;
             nextNoteAndResetTime(); 
         }
-
+        
     });
     incorrect.addEventListener('click', nextNoteAndResetTime); 
     playAgain.addEventListener('click', () =>{
         started = false; 
         removeScoreWindow(); 
         score = 0; 
+        scoreElement.innerHTML = score;
+        globalClockVal = setGlobalClockVal;
         startGame();
     });
 })

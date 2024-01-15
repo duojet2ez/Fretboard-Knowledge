@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const hostname = '127.0.0.1';
 const port = 3000;
- 
+
 const homePage = readFileSync('./index.html');
 const scriptLoad = readFileSync('./game.js'); 
 const style = readFileSync('./style.css'); 
