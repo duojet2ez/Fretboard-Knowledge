@@ -3,17 +3,21 @@
     <head>
         <title> Fretboard Knowledge </title>
         <link rel="stylesheet" type="text/css" href="style.css"/>
-        <script src="game.js"></script>
     </head>
     <body>
         <div class="container">
             <h1> Fretboard Knowledge </h1> <br>
             <div class="items">
-                <button id="play">Play Game</button>
+                <button id="play" onClick="playGame()">Play Game</button>
                 <button id="difficulty">Set Difficulty</button>
             </div>
             <h2 id="text"></h2>
             <div id="global-clock">  </div>
        </div>
+       <script>
+        function playGame(){
+            window.location.href = 'start.html';
+        }
+       </script>
     </body>
 </html>
