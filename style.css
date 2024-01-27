@@ -47,14 +47,6 @@ h2{
     margin-right: 100px;
 }
 
-.container {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh; /* Set a minimum height to ensure all content is visible */
-  }
-
 
   .window {
     display: none;
@@ -99,4 +91,12 @@ h2{
 
 .header{
     text-align: center;
+}
+
+.introScreen{
+
+}
+
+.gameScreen{
+    display: none;
 }

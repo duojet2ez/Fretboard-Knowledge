@@ -68,8 +68,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
-
-
     function nextNoteAndResetTime(){
         //if game has started 
         if(started){

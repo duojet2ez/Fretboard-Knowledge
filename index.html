@@ -13,16 +13,28 @@
                 <button id="play" onClick="playGame()">Play Game</button>
                 <button id="difficulty">Set Difficulty</button>
             </div>
-        </div>
-        
 
-        
-        <div class="container">
-            <h1> Fretboard Knowledge </h1> <br>
-                <button id="play" onClick="playGame()">Play Game</button>
-                <button id="difficulty">Set Difficulty</button>
-            <h2 id="text"></h2>
-            <div id="global-clock">  </div>
-       </div>
+
+            <div class="gameScreen">
+                <div class="items">
+                    <h2> Score: <span id="score">0</span></h2>
+                    <h2> Time: <span id="currTime">5</span></h2>
+                </div>
+                <h2 id="text"></h2>
+                <button id="increment"> Correct </button>
+                <button id="incorrect"> Incorrect </button>
+                <button id="start"> Start </button>
+                <div id="global-clock">  </div>
+            </div>
+
+
+            <div class="window">
+                <div class="game_over"> Game Over! </div>
+                <div class="score_text"> Your Score: 0</div>
+                <div class="play_again"> <button id="pAgain"> Play Again </button></div>
+            </div>
+
+        </div>
+       <script src="game.js"></script>
     </body>
 </html>
