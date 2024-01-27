@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const scoreWindow = document.querySelector('.window');
     const yourScoreText = document.querySelector('.score_text'); 
     const playAgain = document.getElementById('pAgain');
+    const play = document.getElementById('play');
+    const introScreen = document.querySelector('.introScreen');
+    const gameScreen = document.querySelector('.gameScreen');
 
     let score; 
     const setTimerVal = 5; 
@@ -24,6 +27,13 @@ document.addEventListener('DOMContentLoaded', function(){
     let clearGlobalTimer;
 
 
+    function playGame(){
+        //hide introScreen
+        introScreen.style.display = 'none';
+
+        //turn on gameScreen
+        gameScreen.style.display = 'initial';
+    }
 
     function setRandStringNote(){
         let randNoteIndex = Math.floor(Math.random() * (17)); 
@@ -93,6 +103,8 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     start.addEventListener('click', startGame); 
+
+    play.addEventListener('click', playGame);
 
     increment.addEventListener('click', function(){
         if(started){
