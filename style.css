@@ -1,18 +1,20 @@
 body{
     margin: 0;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Wood_background.jpg') no-repeat center center fixed;
+    background-image: url("wood-pattern.png");     /* https://www.transparenttextures.com/wood-pattern.html  */
+    background-color: #3a3b3b;
     padding: 0;
     box-sizing: border-box;
-    
 }
 
 h1{
+    color:rgba(211, 223, 226, 0.973);
     font-size: 70px;
     margin-top: 1px;
     margin-bottom: 5%;
 
 }
 h2{
+    color:rgba(211, 223, 226, 0.973);
     font-size: 55px;
     display: inline-block;
     margin-right: 100px;
@@ -103,5 +105,6 @@ h2{
 }
 
 .NoteStringText{
+   /* border: 2px solid rgb(255, 255, 255); /* Change to the color you desire */
     text-align: center;
 }
