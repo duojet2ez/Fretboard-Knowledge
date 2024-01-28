@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const play = document.getElementById('play');
     const introScreen = document.querySelector('.introScreen');
     const gameScreen = document.querySelector('.gameScreen');
+    const gameText = document.getElementById('gameText');
 
     let score; 
     const setTimerVal = 5; 
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let randStringIndex = Math.floor(Math.random() * (6)); 
         let stringValue = strings[randStringIndex];
         let noteValue = notes[randNoteIndex];
-        text.innerHTML = `${noteValue} on the ${stringValue} string`; 
+        gameText.innerHTML = `${noteValue} on the ${stringValue} string`; 
     }
 
     function reduceTime(){

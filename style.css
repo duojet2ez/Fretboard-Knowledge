@@ -1,7 +1,9 @@
 body{
     margin: 0;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/2/2e/Wood_background.jpg') no-repeat center center fixed;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 h1{
@@ -98,4 +100,8 @@ h2{
 
 .gameScreen{
     display: none;
+}
+
+.NoteStringText{
+    text-align: center;
 }
