@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const introScreen = document.querySelector('.introScreen');
     const gameScreen = document.querySelector('.gameScreen');
     const gameText = document.getElementById('gameText');
+    const setDifficulty = document.getElementById('difficulty');
 
     let score; 
     const setTimerVal = 5; 
@@ -42,6 +43,10 @@ document.addEventListener('DOMContentLoaded', function(){
         let stringValue = strings[randStringIndex];
         let noteValue = notes[randNoteIndex];
         gameText.innerHTML = `${noteValue} on the ${stringValue} string`; 
+    }
+
+    function setDifficult(){
+        console.log('hello');
     }
 
     function reduceTime(){
@@ -104,8 +109,9 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     start.addEventListener('click', startGame); 
-
     play.addEventListener('click', playGame);
+    setDifficulty.addEventListener('click', setDifficult);
+
 
     increment.addEventListener('click', function(){
         if(started){
