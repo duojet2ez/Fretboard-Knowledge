@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const gameScreen = document.querySelector('.gameScreen');
     const gameText = document.getElementById('gameText');
     const setDifficulty = document.getElementById('difficulty');
+    const difficultyWindow = document.querySelector('.difficultyWindow');
 
     let score; 
     const setTimerVal = 5; 
@@ -46,7 +47,8 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function setDifficult(){
-        console.log('hello');
+        difficultyWindow.style.display = 'initial';
+
     }
 
     function reduceTime(){

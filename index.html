@@ -6,6 +6,7 @@
     </head>
     <body>
         <div class="flexContainer">
+             <!-- -------------------------------------------------------------------------------------------------------------  -->
             <div class="header">
                 <h1> Fretboard Knowledge </h1>
             </div>
@@ -13,12 +14,41 @@
                 <button id="play">Play Game</button>
                 <button id="difficulty">Set Difficulty</button>
             </div>
-
+             <!-- -------------------------------------------------------------------------------------------------------------  -->
             <div class="difficultyWindow">
-                <h2>Select Fretboard Range</h2>
-                <p>From fret 0 to fret 12</p>
+                <label for="startFret">Choose a starting fret:</label>
+                <select name="startFret" id="startFret">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select> 
+                <label for="endingFret">Choose an ending fret:</label>
+                <select name="endingFret" id="endingFret">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select> 
+                <button tye="submit">Submit</button>
             </div>
-
+            <!-- -------------------------------------------------------------------------------------------------------------  -->
             <div class="gameScreen">
                 <div class="items">
                     <h2> Score: <span id="score">0</span></h2>
@@ -33,13 +63,13 @@
                 <button id="start"> Start </button>
                 <div id="global-clock">  </div>
             </div>
-
+             <!-- -------------------------------------------------------------------------------------------------------------  -->
             <div class="window">
                 <div class="game_over"> Game Over! </div>
                 <div class="score_text"> Your Score: 0</div>
                 <div class="play_again"> <button id="pAgain"> Play Again </button></div>
             </div>
-
+             <!-- -------------------------------------------------------------------------------------------------------------  -->
         </div>
        <script src="game.js"></script>
     </body>
