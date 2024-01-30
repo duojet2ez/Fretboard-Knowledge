@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const gameText = document.getElementById('gameText');
     const setDifficulty = document.getElementById('difficulty');
     const difficultyWindow = document.querySelector('.difficultyWindow');
+    const submitButtonDifficulty = document.getElementById('submitButtonDifficulty');
 
     let score; 
     const setTimerVal = 5; 
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function(){
     start.addEventListener('click', startGame); 
     play.addEventListener('click', playGame);
     setDifficulty.addEventListener('click', setDifficult);
+    submitButtonDifficulty.addEventListener('click', () => {difficultyWindow.style.display = 'none';});
 
 
     increment.addEventListener('click', function(){
