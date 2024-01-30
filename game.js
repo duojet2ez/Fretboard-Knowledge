@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function(){
     let started = false; 
     let clearTimer; 
     let clearGlobalTimer;
+    let startFret = 0;
+    let endFret = 12; 
 
 
     function playGame(){
@@ -50,6 +52,12 @@ document.addEventListener('DOMContentLoaded', function(){
     function setDifficult(){
         difficultyWindow.style.display = 'initial';
 
+    }
+    function saveDifficultySettings(){
+         startFret = document.getElementById("startFret").value;
+         endFret = document.getElementById("endingFret").value;
+        difficultyWindow.style.display = 'none';
+        console.log(typeof startFret);
     }
 
     function reduceTime(){
@@ -114,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function(){
     start.addEventListener('click', startGame); 
     play.addEventListener('click', playGame);
     setDifficulty.addEventListener('click', setDifficult);
-    submitButtonDifficulty.addEventListener('click', () => {difficultyWindow.style.display = 'none';});
+    submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
 
 
     increment.addEventListener('click', function(){
