@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     }
     function saveDifficultySettings(){
-         startFret = document.getElementById("startFret").value;
-         endFret = document.getElementById("endingFret").value;
+         startFret = Number(document.getElementById("startFret").value); // convert string value to number
+         endFret = Number(document.getElementById("endingFret").value);
         difficultyWindow.style.display = 'none';
         console.log(typeof startFret);
     }
