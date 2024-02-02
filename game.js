@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', function(){
     const strings = [1,2,3,4,5,6];
     const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A#', 'C#', 'D#', 'F#', 'G#', 'Ab', 'Bb', 'Db', 'Eb', 'Gb'];
+    const fretboard = [[['E', 6], ['A', 5], ['D', 4], ['G', 3], ['B', 2], ['E', 1]], //fret 0
+    [['F', 6], ['A#', 5], ['Bb', 5], ['D#', 4], ['Eb', 4], ['G#', 3], ['Ab', 3], ['C', 2], ['F', 1]],  //fret 1
+    [['F#', 6], ['Gb', 6], ['B', 5], ['E', 4], ['A', 3], ['C#', 2], ['Db', 2], ['F#', 1], ['Gb', 1]],
+    [['G', 6], ['C', 5], ['F', 4], ['A#', 3], ['Bb', 3], ['D', 2], ['G', 1]] //fret 3
+]; 
+    
+    
     const scoreElement = document.getElementById('score');
     const increment = document.getElementById('increment');
     const stringValue = document.getElementById('num');
@@ -57,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function(){
          startFret = Number(document.getElementById("startFret").value); // convert string value to number
          endFret = Number(document.getElementById("endingFret").value);
         difficultyWindow.style.display = 'none';
-        console.log(typeof startFret);
+        console.log(startFret);
     }
 
     function reduceTime(){
