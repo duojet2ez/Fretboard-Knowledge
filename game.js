@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function(){
     [['G', 6], ['C', 5], ['F', 4], ['A#', 3], ['Bb', 3], ['D', 2], ['G', 1]] //fret 3
 ]; 
     
-    
     const scoreElement = document.getElementById('score');
     const increment = document.getElementById('increment');
     const stringValue = document.getElementById('num');
@@ -60,11 +59,29 @@ document.addEventListener('DOMContentLoaded', function(){
         difficultyWindow.style.display = 'initial';
 
     }
+    
+    //takes in 3d array of fretboard and a start and end range, returns a 2d array of possible notes with corresponding strings e.g. [['A', 5], ['B', 2]]
+    function getValuesFromFretboard(fretboardArr, start, end){
+        let rangedNotes = [];  
+        for(let i = start; i <= end; i++){
+            rangedNotes.push(fretboardArr[i]); 
+        }
+        return rangedNotes;
+    }
+
+    //function takes in a 2d array of notes w strings, picks a random index of 2d array,  and returns an array of size 2 that has ['note name', string]
+    function pickRandomNoteString(noteStrings){
+        let noteSelectionSize = noteStrings.length; //adjust for array size - 1
+        const randomNumber = Math.floor(Math.random() * noteSelectionSize); 
+        return noteStrings[randomNumber]; 
+    }
+
+
+
     function saveDifficultySettings(){
          startFret = Number(document.getElementById("startFret").value); // convert string value to number
          endFret = Number(document.getElementById("endingFret").value);
         difficultyWindow.style.display = 'none';
-        console.log(startFret);
     }
 
     function reduceTime(){
