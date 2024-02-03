@@ -36,23 +36,20 @@ document.addEventListener('DOMContentLoaded', function(){
     let clearTimer; 
     let clearGlobalTimer;
     let startFret = 0;
-    let endFret = 12; 
+    let endFret = 3; 
 
 
     function playGame(){
         //hide introScreen
         introScreen.style.display = 'none';
-
         //turn on gameScreen
         gameScreen.style.display = 'initial';
     }
 
     function setRandStringNote(){
-        let randNoteIndex = Math.floor(Math.random() * (17)); 
-        let randStringIndex = Math.floor(Math.random() * (6)); 
-        let stringValue = strings[randStringIndex];
-        let noteValue = notes[randNoteIndex];
-        gameText.innerHTML = `${noteValue} on the ${stringValue} string`; 
+        console.log(`start fret: ${startFret}, end fret: ${endFret}`);
+        const noteString = pickRandomNoteString(getValuesFromFretboard(fretboard, startFret, endFret));
+        gameText.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
     }
 
     function setDifficult(){
@@ -64,14 +61,16 @@ document.addEventListener('DOMContentLoaded', function(){
     function getValuesFromFretboard(fretboardArr, start, end){
         let rangedNotes = [];  
         for(let i = start; i <= end; i++){
-            rangedNotes.push(fretboardArr[i]); 
+            for(let j = 0; j < fretboardArr[i].length; j++){
+                rangedNotes.push(fretboardArr[i][j]); 
+            }
         }
         return rangedNotes;
     }
 
     //function takes in a 2d array of notes w strings, picks a random index of 2d array,  and returns an array of size 2 that has ['note name', string]
     function pickRandomNoteString(noteStrings){
-        let noteSelectionSize = noteStrings.length; //adjust for array size - 1
+        let noteSelectionSize = noteStrings.length;
         const randomNumber = Math.floor(Math.random() * noteSelectionSize); 
         return noteStrings[randomNumber]; 
     }
@@ -113,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function(){
         globalClockVal--;
         globalClock.innerHTML = globalClockVal;
         if(globalClockVal == 1){
-            console.log('end'); 
             clearInterval(clearGlobalTimer);
             endGame();
         }
@@ -136,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function(){
             started = true;
             score = 0;
             globalClock.innerHTML = globalClockVal;
-
             setRandStringNote();
             clearGlobalTimer = setInterval(reduceGlobalClock, 1000); 
             clearTimer = setInterval(reduceTime, 1000);    
