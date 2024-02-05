@@ -140,12 +140,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
-    start.addEventListener('click', startGame); 
-    play.addEventListener('click', playGame);
-    setDifficulty.addEventListener('click', setDifficult);
-    submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
-
-
     increment.addEventListener('click', function(){
         if(started){
             //increment update score in html 
@@ -164,5 +158,10 @@ document.addEventListener('DOMContentLoaded', function(){
         globalClockVal = setGlobalClockVal;
         startGame();
     });
+
+    start.addEventListener('click', startGame); 
+    play.addEventListener('click', playGame);
+    setDifficulty.addEventListener('click', setDifficult);
+    submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
 })
 
