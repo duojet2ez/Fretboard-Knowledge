@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function setRandStringNote(){
         console.log(`start fret: ${startFret}, end fret: ${endFret}`);
+        if(startFret > endFret) {let temp = startFret; startFret = endFret; endFret = temp;}
         const noteString = pickRandomNoteString(getValuesFromFretboard(fretboard, startFret, endFret));
         gameText.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
     }
