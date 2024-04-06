@@ -40,12 +40,35 @@ document.addEventListener('DOMContentLoaded', function(){
     let startFret = 0;
     let endFret = 3; 
 
+    function startAudio(){
+        let source;
+        let audioContext = new AudioContext();
+        let sr = audioContext.sampleRate;
+        let analyser = audioContext.createAnalyser();
+        navigator.mediaDevices.getUserMedia({audio:true})
+        .then((stream) =>{
+            source = audioContext.createMediaStreamSource(stream);
+            // Connect the source node to the analyzer
+            source.connect(analyser);
+            function processAudio(){
+              const bufferLength = analyser.fftSize;
+              const dataArray = new Float32Array(bufferLength);
+              analyser.getFloatTimeDomainData(dataArray); 
+              //dataArray represents audioBuffer
+              let freq = autoCorrelate(dataArray, sr);
+              console.log(freq); 
+              requestAnimationFrame(processAudio); 
+            }
+            processAudio();
+        });
 
+    }
     function playGame(){
         //hide introScreen
         introScreen.style.display = 'none';
         //turn on gameScreen
         gameScreen.style.display = 'initial';
+        startAudio();
     }
 
     function setRandStringNote(){
@@ -139,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function(){
             globalClock.innerHTML = globalClockVal;
             setRandStringNote();
             clearGlobalTimer = setInterval(reduceGlobalClock, 1000); 
-            clearTimer = setInterval(reduceTime, 1000);    
+            clearTimer = setInterval(reduceTime, 1000);   
         }
     }
 
