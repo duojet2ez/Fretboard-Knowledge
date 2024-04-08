@@ -3,7 +3,7 @@ import { autoCorrelate } from "./autoCorrelationAlgo.js";
 document.addEventListener('DOMContentLoaded', function(){
     const strings = [1,2,3,4,5,6];
     const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A#', 'C#', 'D#', 'F#', 'G#', 'Ab', 'Bb', 'Db', 'Eb', 'Gb'];
-    const fretboard = [[['E', 6], ['A', 5], ['D', 4], ['G', 3], ['B', 2], ['E', 1]], //fret 0
+    const fretboard = [[['E', 6, 81, 83], ['A', 5, 109, 111], ['D', 4, 146, 148], ['G', 3, 195, 197], ['B', 2, 246, 248], ['E', 1, 329, 331]], //fret 0
     [['F', 6], ['A#', 5], ['Bb', 5], ['D#', 4], ['Eb', 4], ['G#', 3], ['Ab', 3], ['C', 2], ['F', 1]],  //fret 1
     [['F#', 6], ['Gb', 6], ['B', 5], ['E', 4], ['A', 3], ['C#', 2], ['Db', 2], ['F#', 1], ['Gb', 1]],
     [['G', 6], ['C', 5], ['F', 4], ['A#', 3], ['Bb', 3], ['D', 2], ['G', 1]] //fret 3
@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const setDifficulty = document.getElementById('difficulty');
     const difficultyWindow = document.querySelector('.difficultyWindow');
     const submitButtonDifficulty = document.getElementById('submitButtonDifficulty');
+    const freqRangeLow = 2;
+    const freqRangeHigh = 3; 
+    let currentNoteString; 
 
     let score; 
     const setTimerVal = 5; 
@@ -57,6 +60,13 @@ document.addEventListener('DOMContentLoaded', function(){
               //dataArray represents audioBuffer
               let freq = autoCorrelate(dataArray, sr);
               console.log(freq); 
+              //if gameStarted is true and note detected within frequency 
+              if(started && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
+                //increment score and go to next
+                score+=5; 
+                scoreElement.innerHTML = score;
+                nextNoteAndResetTime();  
+              }
               requestAnimationFrame(processAudio); 
             }
             processAudio();
@@ -75,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function(){
         console.log(`start fret: ${startFret}, end fret: ${endFret}`);
         if(startFret > endFret) {let temp = startFret; startFret = endFret; endFret = temp;}
         const noteString = pickRandomNoteString(getValuesFromFretboard(fretboard, startFret, endFret));
+        currentNoteString = noteString; 
         gameText.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
     }
 
@@ -94,10 +105,11 @@ document.addEventListener('DOMContentLoaded', function(){
         return rangedNotes;
     }
 
-    //function takes in a 2d array of notes w strings, picks a random index of 2d array,  and returns an array of size 2 that has ['note name', string]
+    //function takes in a 2d array of notes w strings, picks a random index of 2d array,  and returns an array of size 4 that has ['note name', string, lowfreq, highFreq]
     function pickRandomNoteString(noteStrings){
         let noteSelectionSize = noteStrings.length;
         const randomNumber = Math.floor(Math.random() * noteSelectionSize); 
+        console.log(noteStrings[randomNumber]);
         return noteStrings[randomNumber]; 
     }
 
