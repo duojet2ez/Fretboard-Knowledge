@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function(){
         introScreen.style.display = 'none';
         //turn on gameScreen
         gameScreen.style.display = 'initial';
+        difficultyWindow.style.display = 'none';
         startAudio();
     }
 
