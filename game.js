@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const yourScoreText = document.querySelector('.score_text'); 
     const playAgain = document.getElementById('pAgain');
     const play = document.getElementById('play');
+    const returnMain = document.getElementById('returnMain');
     const introScreen = document.querySelector('.introScreen');
     const gameScreen = document.querySelector('.gameScreen');
     const gameText = document.getElementById('gameText');
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function(){
               analyser.getFloatTimeDomainData(dataArray); 
               //dataArray represents audioBuffer
               let freq = autoCorrelate(dataArray, sr);
-              console.log(freq); 
+             
               //if gameStarted is true and note detected within frequency 
               if(started && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
                 //increment score and go to next
@@ -92,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function setRandStringNote(){
-        console.log(`start fret: ${startFret}, end fret: ${endFret}`);
         if(startFret > endFret) {let temp = startFret; startFret = endFret; endFret = temp;}
         const noteString = pickRandomNoteString(getValuesFromFretboard(fretboard, startFret, endFret));
         currentNoteString = noteString; 
@@ -119,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function(){
     function pickRandomNoteString(noteStrings){
         let noteSelectionSize = noteStrings.length;
         const randomNumber = Math.floor(Math.random() * noteSelectionSize); 
-        console.log(noteStrings[randomNumber]);
         return noteStrings[randomNumber]; 
     }
 
@@ -159,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function(){
     function reduceGlobalClock(){
         globalClockVal--;
         globalClock.innerHTML = globalClockVal;
-        if(globalClockVal == 1){
+        if(globalClockVal === 1){
             clearInterval(clearGlobalTimer);
             endGame();
         }
@@ -173,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function(){
             timerVal = setTimerVal; time.innerHTML = timerVal; 
             clearTimer = setInterval(reduceTime, 1000);
         }
-
     }
    
     function startGame(){
@@ -205,6 +203,16 @@ document.addEventListener('DOMContentLoaded', function(){
         scoreElement.innerHTML = score;
         globalClockVal = setGlobalClockVal;
         startGame();
+    });
+
+    returnMain.addEventListener('click', () =>{
+        scoreWindow.style.display = 'none';
+        gameScreen.style.display = 'none';
+        introScreen.style.display = 'initial';
+        //all states need to be reset to initial
+        started = false; 
+        //need to reset global timer
+        globalClockVal = setGlobalClockVal;
     });
 
     start.addEventListener('click', startGame); 
