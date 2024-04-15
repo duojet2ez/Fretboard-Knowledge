@@ -7,4 +7,5 @@ This web application is designed for guitar teachers to use with students to tes
 ```
 npm install
 nodemon app.js
+npm start
 ```
