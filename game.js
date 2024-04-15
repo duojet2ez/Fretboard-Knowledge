@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let score; 
     const setTimerVal = 5; 
     let timerVal = setTimerVal; 
-    const setGlobalClockVal = 3;
+    const setGlobalClockVal = 60;
     let globalClockVal = setGlobalClockVal; 
     let started = false; 
     let clearTimer; 
