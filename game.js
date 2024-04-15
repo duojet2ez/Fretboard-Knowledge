@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let score; 
     const setTimerVal = 5; 
     let timerVal = setTimerVal; 
-    const setGlobalClockVal = 60;
+    const setGlobalClockVal = 3;
     let globalClockVal = setGlobalClockVal; 
     let started = false; 
     let clearTimer; 
@@ -213,6 +213,8 @@ document.addEventListener('DOMContentLoaded', function(){
         started = false; 
         //need to reset global timer
         globalClockVal = setGlobalClockVal;
+        gameText.innerHTML = '';
+        scoreElement.innerHTML = '0';
     });
 
     start.addEventListener('click', startGame); 
