@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let currentNoteString; 
 
     let score; 
-    const setTimerVal = 5; 
+    const setTimerVal = 10; 
     let timerVal = setTimerVal; 
     const setGlobalClockVal = 60;
     let globalClockVal = setGlobalClockVal; 
