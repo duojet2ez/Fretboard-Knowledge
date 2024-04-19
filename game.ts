@@ -1,4 +1,4 @@
-import { autoCorrelate } from "./autoCorrelationAlgo.js";
+import { autoCorrelate } from "./autoCorrelationAlgo";
 
 document.addEventListener('DOMContentLoaded', function(){
     const strings = [1,2,3,4,5,6];
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function(){
               if(started && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
                 //increment score and go to next
                 score+=5; 
-                scoreElement.innerHTML = score;
+                scoreElement!.innerHTML = score;
                 nextNoteAndResetTime();  
               }
               requestAnimationFrame(processAudio); 
@@ -85,10 +85,10 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     function playGame(){
         //hide introScreen
-        introScreen.style.display = 'none';
+        introScreen!.style.display = 'none';
         //turn on gameScreen
-        gameScreen.style.display = 'initial';
-        difficultyWindow.style.display = 'none';
+        gameScreen!.style.display = 'initial';
+        difficultyWindow!.style.display = 'none';
         startAudio();
     }
 
@@ -96,11 +96,11 @@ document.addEventListener('DOMContentLoaded', function(){
         if(startFret > endFret) {let temp = startFret; startFret = endFret; endFret = temp;}
         const noteString = pickRandomNoteString(getValuesFromFretboard(fretboard, startFret, endFret));
         currentNoteString = noteString; 
-        gameText.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
+        gameText!.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
     }
 
     function setDifficult(){
-        difficultyWindow.style.display = 'initial';
+        difficultyWindow!.style.display = 'initial';
 
     }
     
@@ -125,14 +125,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     function saveDifficultySettings(){
-         startFret = Number(document.getElementById("startFret").value); // convert string value to number
-         endFret = Number(document.getElementById("endingFret").value);
-        difficultyWindow.style.display = 'none';
+         startFret = Number(document.getElementById("startFret")!.value); // convert string value to number
+         endFret = Number(document.getElementById("endingFret")!.value);
+        difficultyWindow!.style.display = 'none';
     }
 
     function reduceTime(){
         timerVal--; 
-        time.innerHTML = timerVal; 
+        time!.innerHTML = timerVal; 
         if(timerVal === 0){
             timerVal = 6; 
             nextNoteAndResetTime();
@@ -140,24 +140,24 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function setScoreWindow(){
-        scoreWindow.style.display = 'flex';
+        scoreWindow!.style.display = 'flex';
     }
     function removeScoreWindow(){
-        scoreWindow.style.display = 'none';
+        scoreWindow!.style.display = 'none';
     }
 
     function endGame(){
         setScoreWindow(); 
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
-        yourScoreText.innerHTML=`Your Score: ${score}`;
+        yourScoreText!.innerHTML=`Your Score: ${score}`;
         //reset local timer
-        timerVal = setTimerVal; time.innerHTML = timerVal; 
+        timerVal = setTimerVal; time!.innerHTML = timerVal; 
     }
 
     function reduceGlobalClock(){
         globalClockVal--;
-        globalClock.innerHTML = globalClockVal;
+        globalClock!.innerHTML = globalClockVal;
         if(globalClockVal === 1){
             clearInterval(clearGlobalTimer);
             endGame();
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if(started){
             setRandStringNote();
             clearInterval(clearTimer); 
-            timerVal = setTimerVal; time.innerHTML = timerVal; 
+            timerVal = setTimerVal; time!.innerHTML = timerVal; 
             clearTimer = setInterval(reduceTime, 1000);
         }
     }
@@ -179,47 +179,47 @@ document.addEventListener('DOMContentLoaded', function(){
         else{
             started = true;
             score = 0;
-            globalClock.innerHTML = globalClockVal;
+            globalClock!.innerHTML = globalClockVal;
             setRandStringNote();
             clearGlobalTimer = setInterval(reduceGlobalClock, 1000); 
             clearTimer = setInterval(reduceTime, 1000);   
         }
     }
 
-    increment.addEventListener('click', function(){
+    increment!.addEventListener('click', function(){
         if(started){
             //increment update score in html 
             score+=5; 
-            scoreElement.innerHTML = score;
+            scoreElement!.innerHTML = score;
             nextNoteAndResetTime(); 
         }
         
     });
-    incorrect.addEventListener('click', nextNoteAndResetTime); 
-    playAgain.addEventListener('click', () =>{
+    incorrect!.addEventListener('click', nextNoteAndResetTime); 
+    playAgain!.addEventListener('click', () =>{
         started = false; 
         removeScoreWindow(); 
         score = 0; 
-        scoreElement.innerHTML = score;
+        scoreElement!.innerHTML = score;
         globalClockVal = setGlobalClockVal;
         startGame();
     });
 
-    returnMain.addEventListener('click', () =>{
-        scoreWindow.style.display = 'none';
-        gameScreen.style.display = 'none';
-        introScreen.style.display = 'initial';
+    returnMain!.addEventListener('click', () =>{
+        scoreWindow!.style.display = 'none';
+        gameScreen!.style.display = 'none';
+        introScreen!.style.display = 'initial';
         //all states need to be reset to initial
         started = false; 
         //need to reset global timer
         globalClockVal = setGlobalClockVal;
-        gameText.innerHTML = '';
-        scoreElement.innerHTML = '0';
+        gameText!.innerHTML = '';
+        scoreElement!.innerHTML = '0';
     });
 
-    start.addEventListener('click', startGame); 
-    play.addEventListener('click', playGame);
-    setDifficulty.addEventListener('click', setDifficult);
-    submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
+    start!.addEventListener('click', startGame); 
+    play!.addEventListener('click', playGame);
+    setDifficulty!.addEventListener('click', setDifficult);
+    submitButtonDifficulty!.addEventListener('click', saveDifficultySettings);
 })
 
