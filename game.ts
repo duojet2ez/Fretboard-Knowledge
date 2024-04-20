@@ -1,9 +1,10 @@
 import { autoCorrelate } from "./autoCorrelationAlgo";
 
 document.addEventListener('DOMContentLoaded', function(){
-    const strings = [1,2,3,4,5,6];
-    const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A#', 'C#', 'D#', 'F#', 'G#', 'Ab', 'Bb', 'Db', 'Eb', 'Gb'];
-    const fretboard = [[['E', 6, 81, 83], ['A', 5, 109, 111], ['D', 4, 146, 148], ['G', 3, 195, 197], ['B', 2, 246, 248], ['E', 1, 329, 331]], //fret 0
+    const strings: number[] = [1,2,3,4,5,6];
+    const notes: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A#', 'C#', 'D#', 'F#', 'G#', 'Ab', 'Bb', 'Db', 'Eb', 'Gb'];
+    type FretboardNotes = [string, number, number, number]
+    const fretboard: FretboardNotes[][] = [[['E', 6, 81, 83], ['A', 5, 109, 111], ['D', 4, 146, 148], ['G', 3, 195, 197], ['B', 2, 246, 248], ['E', 1, 329, 331]], //fret 0
     [['F', 6, 86, 88], ['A#', 5, 116, 118], ['Bb', 5, 116, 118], ['D#', 4, 155, 157], ['Eb', 4, 155, 157], ['G#', 3, 207, 209], ['Ab', 3, 207, 209], ['C', 2, 261, 263], ['F', 1, 348, 350]],  //fret 1
     [['F#', 6, 92, 94], ['Gb', 6, 92, 94], ['B', 5, 123, 125], ['E', 4, 164, 166], ['A', 3, 219, 221], ['C#', 2, 277, 279], ['Db', 2, 277, 279], ['F#', 1, 369, 371], ['Gb', 1, 369, 371]], //fret 2
     [['G', 6, 97, 99], ['C', 5, 130, 132], ['F', 4, 174, 176], ['A#', 3, 232, 234], ['Bb', 3, 232, 234], ['D', 2, 293, 295], ['G', 1, 391, 393]], //fret 3
@@ -18,40 +19,40 @@ document.addEventListener('DOMContentLoaded', function(){
     [['E', 6, 164, 166], ['A', 5, 219, 221], ['D', 4, 293, 295], ['G', 3, 391, 393], ['B', 2, 493, 495], ['E', 1, 658, 660]]  //fret 12
 ]; 
     
-    const scoreElement = document.getElementById('score');
-    const increment = document.getElementById('increment');
-    const stringValue = document.getElementById('num');
-    const noteValue = document.getElementById('note'); 
-    const time = document.getElementById('currTime'); 
-    const start = document.getElementById('start');
-    const text = document.getElementById('text'); 
-    const incorrect = document.getElementById('incorrect'); 
-    const globalClock = document.getElementById('global-clock');
-    const scoreWindow = document.querySelector('.window');
-    const yourScoreText = document.querySelector('.score_text'); 
-    const playAgain = document.getElementById('pAgain');
-    const play = document.getElementById('play');
-    const returnMain = document.getElementById('returnMain');
-    const introScreen = document.querySelector('.introScreen');
-    const gameScreen = document.querySelector('.gameScreen');
-    const gameText = document.getElementById('gameText');
-    const setDifficulty = document.getElementById('difficulty');
-    const difficultyWindow = document.querySelector('.difficultyWindow');
-    const submitButtonDifficulty = document.getElementById('submitButtonDifficulty');
-    const freqRangeLow = 2;
-    const freqRangeHigh = 3; 
-    let currentNoteString; 
+    const scoreElement: HTMLElement | null = document.getElementById('score');
+    const increment: HTMLElement | null = document.getElementById('increment');
+    const stringValue: HTMLElement | null = document.getElementById('num');
+    const noteValue: HTMLElement | null = document.getElementById('note'); 
+    const time: HTMLElement | null = document.getElementById('currTime'); 
+    const start: HTMLElement | null = document.getElementById('start');
+    const text: HTMLElement | null = document.getElementById('text'); 
+    const incorrect: HTMLElement | null = document.getElementById('incorrect'); 
+    const globalClock: HTMLElement | null = document.getElementById('global-clock');
+    const scoreWindow: HTMLElement | null = document.querySelector('.window');
+    const yourScoreText: HTMLElement | null = document.querySelector('.score_text'); 
+    const playAgain: HTMLElement | null = document.getElementById('pAgain');
+    const play: HTMLElement | null = document.getElementById('play');
+    const returnMain: HTMLElement | null = document.getElementById('returnMain');
+    const introScreen: HTMLElement | null = document.querySelector('.introScreen');
+    const gameScreen: HTMLElement | null = document.querySelector('.gameScreen');
+    const gameText: HTMLElement | null = document.getElementById('gameText');
+    const setDifficulty: HTMLElement | null = document.getElementById('difficulty');
+    const difficultyWindow: HTMLElement | null = document.querySelector('.difficultyWindow');
+    const submitButtonDifficulty: HTMLElement | null = document.getElementById('submitButtonDifficulty');
+    const freqRangeLow: number = 2;
+    const freqRangeHigh: number = 3; 
+    let currentNoteString: [string, number, number, number]; 
 
-    let score; 
-    const setTimerVal = 5; 
-    let timerVal = setTimerVal; 
-    const setGlobalClockVal = 60;
+    let score: number; 
+    const setTimerVal: number = 5; 
+    let timerVal: number = setTimerVal; 
+    const setGlobalClockVal: number = 60;
     let globalClockVal = setGlobalClockVal; 
-    let started = false; 
-    let clearTimer; 
-    let clearGlobalTimer;
-    let startFret = 0;
-    let endFret = 3; 
+    let started: boolean = false; 
+    let clearTimer: number; 
+    let clearGlobalTimer: number;
+    let startFret: number = 0;
+    let endFret: number = 3; 
 
     function startAudio(){
         let source;
@@ -71,10 +72,10 @@ document.addEventListener('DOMContentLoaded', function(){
               let freq = autoCorrelate(dataArray, sr);
              
               //if gameStarted is true and note detected within frequency 
-              if(started && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
+              if(started && typeof currentNoteString[freqRangeHigh] === 'number' && typeof currentNoteString[freqRangeLow] === 'number' && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
                 //increment score and go to next
                 score+=5; 
-                scoreElement!.innerHTML = score;
+                scoreElement.innerHTML = `${score}`;
                 nextNoteAndResetTime();  
               }
               requestAnimationFrame(processAudio); 
@@ -85,28 +86,29 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     function playGame(){
         //hide introScreen
-        introScreen!.style.display = 'none';
+        introScreen.style.display = 'none';
         //turn on gameScreen
-        gameScreen!.style.display = 'initial';
-        difficultyWindow!.style.display = 'none';
+        gameScreen.style.display = 'initial';
+        difficultyWindow.style.display = 'none';
         startAudio();
     }
 
     function setRandStringNote(){
         if(startFret > endFret) {let temp = startFret; startFret = endFret; endFret = temp;}
-        const noteString = pickRandomNoteString(getValuesFromFretboard(fretboard, startFret, endFret));
+        const noteString: [string, number, number, number] = pickRandomNoteString(getValuesFromFretboard(fretboard, startFret, endFret));
         currentNoteString = noteString; 
-        gameText!.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
+        gameText.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
     }
 
     function setDifficult(){
-        difficultyWindow!.style.display = 'initial';
+        difficultyWindow.style.display = 'initial';
 
     }
     
     //takes in 3d array of fretboard and a start and end range, returns a 2d array of possible notes with corresponding strings e.g. [['A', 5], ['B', 2]]
     function getValuesFromFretboard(fretboardArr, start, end){
-        let rangedNotes = [];  
+        type arrType = [string, number, number, number]; 
+        let rangedNotes: arrType[] = [];  
         for(let i = start; i <= end; i++){
             for(let j = 0; j < fretboardArr[i].length; j++){
                 rangedNotes.push(fretboardArr[i][j]); 
@@ -125,14 +127,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     function saveDifficultySettings(){
-         startFret = Number(document.getElementById("startFret")!.value); // convert string value to number
-         endFret = Number(document.getElementById("endingFret")!.value);
-        difficultyWindow!.style.display = 'none';
+         startFret = Number(document.getElementById("startFret").value); // convert string value to number
+         endFret = Number(document.getElementById("endingFret").value);
+        difficultyWindow.style.display = 'none';
     }
 
     function reduceTime(){
         timerVal--; 
-        time!.innerHTML = timerVal; 
+        time.innerHTML = timerVal; 
         if(timerVal === 0){
             timerVal = 6; 
             nextNoteAndResetTime();
@@ -140,24 +142,24 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function setScoreWindow(){
-        scoreWindow!.style.display = 'flex';
+        scoreWindow.style.display = 'flex';
     }
     function removeScoreWindow(){
-        scoreWindow!.style.display = 'none';
+        scoreWindow.style.display = 'none';
     }
 
     function endGame(){
         setScoreWindow(); 
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
-        yourScoreText!.innerHTML=`Your Score: ${score}`;
+        yourScoreText.innerHTML=`Your Score: ${score}`;
         //reset local timer
-        timerVal = setTimerVal; time!.innerHTML = timerVal; 
+        timerVal = setTimerVal; time.innerHTML = timerVal; 
     }
 
     function reduceGlobalClock(){
         globalClockVal--;
-        globalClock!.innerHTML = globalClockVal;
+        globalClock.innerHTML = globalClockVal;
         if(globalClockVal === 1){
             clearInterval(clearGlobalTimer);
             endGame();
@@ -169,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if(started){
             setRandStringNote();
             clearInterval(clearTimer); 
-            timerVal = setTimerVal; time!.innerHTML = timerVal; 
+            timerVal = setTimerVal; time.innerHTML = timerVal; 
             clearTimer = setInterval(reduceTime, 1000);
         }
     }
@@ -179,47 +181,47 @@ document.addEventListener('DOMContentLoaded', function(){
         else{
             started = true;
             score = 0;
-            globalClock!.innerHTML = globalClockVal;
+            globalClock.innerHTML = globalClockVal;
             setRandStringNote();
             clearGlobalTimer = setInterval(reduceGlobalClock, 1000); 
             clearTimer = setInterval(reduceTime, 1000);   
         }
     }
 
-    increment!.addEventListener('click', function(){
+    increment.addEventListener('click', function(){
         if(started){
             //increment update score in html 
             score+=5; 
-            scoreElement!.innerHTML = score;
+            scoreElement.innerHTML = score;
             nextNoteAndResetTime(); 
         }
         
     });
-    incorrect!.addEventListener('click', nextNoteAndResetTime); 
-    playAgain!.addEventListener('click', () =>{
+    incorrect.addEventListener('click', nextNoteAndResetTime); 
+    playAgain.addEventListener('click', () =>{
         started = false; 
         removeScoreWindow(); 
         score = 0; 
-        scoreElement!.innerHTML = score;
+        scoreElement.innerHTML = score;
         globalClockVal = setGlobalClockVal;
         startGame();
     });
 
-    returnMain!.addEventListener('click', () =>{
-        scoreWindow!.style.display = 'none';
-        gameScreen!.style.display = 'none';
-        introScreen!.style.display = 'initial';
+    returnMain.addEventListener('click', () =>{
+        scoreWindow.style.display = 'none';
+        gameScreen.style.display = 'none';
+        introScreen.style.display = 'initial';
         //all states need to be reset to initial
         started = false; 
         //need to reset global timer
         globalClockVal = setGlobalClockVal;
-        gameText!.innerHTML = '';
+        gameText.innerHTML = '';
         scoreElement!.innerHTML = '0';
     });
 
-    start!.addEventListener('click', startGame); 
-    play!.addEventListener('click', playGame);
-    setDifficulty!.addEventListener('click', setDifficult);
-    submitButtonDifficulty!.addEventListener('click', saveDifficultySettings);
+    start.addEventListener('click', startGame); 
+    play.addEventListener('click', playGame);
+    setDifficulty.addEventListener('click', setDifficult);
+    submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
 })
 
