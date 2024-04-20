@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function(){
     const setGlobalClockVal: number = 60;
     let globalClockVal = setGlobalClockVal; 
     let started: boolean = false; 
-    let clearTimer: number; 
-    let clearGlobalTimer: number;
+    let clearTimer: NodeJS.Timeout; 
+    let clearGlobalTimer: NodeJS.Timeout;
     let startFret: number = 0;
     let endFret: number = 3; 
 
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function(){
               if(started && typeof currentNoteString[freqRangeHigh] === 'number' && typeof currentNoteString[freqRangeLow] === 'number' && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
                 //increment score and go to next
                 score+=5; 
-                scoreElement.innerHTML = `${score}`;
+                if(scoreElement !== null)scoreElement.innerHTML = `${score}`;
                 nextNoteAndResetTime();  
               }
               requestAnimationFrame(processAudio); 
@@ -86,10 +86,10 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     function playGame(){
         //hide introScreen
-        introScreen.style.display = 'none';
+        if(introScreen !== null) introScreen.style.display = 'none';
         //turn on gameScreen
-        gameScreen.style.display = 'initial';
-        difficultyWindow.style.display = 'none';
+        if(gameScreen !== null) gameScreen.style.display = 'initial';
+        if(difficultyWindow !== null) difficultyWindow.style.display = 'none';
         startAudio();
     }
 
@@ -97,11 +97,11 @@ document.addEventListener('DOMContentLoaded', function(){
         if(startFret > endFret) {let temp = startFret; startFret = endFret; endFret = temp;}
         const noteString: [string, number, number, number] = pickRandomNoteString(getValuesFromFretboard(fretboard, startFret, endFret));
         currentNoteString = noteString; 
-        gameText.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
+        if(gameText !== null) gameText.innerHTML = `${noteString[0]} on the ${noteString[1]} string`; 
     }
 
     function setDifficult(){
-        difficultyWindow.style.display = 'initial';
+        if(difficultyWindow !== null) difficultyWindow.style.display = 'initial';
 
     }
     
@@ -127,39 +127,48 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     function saveDifficultySettings(){
-         startFret = Number(document.getElementById("startFret").value); // convert string value to number
-         endFret = Number(document.getElementById("endingFret").value);
-        difficultyWindow.style.display = 'none';
+        const startFretInput = document.getElementById("startFret") as HTMLInputElement | null; 
+        const endFretInput = document.getElementById("endingFret") as HTMLInputElement | null; 
+
+         let startFret: number;
+         let endFret: number;
+         // Number(startFretInput.value); // convert string value to number
+         if(startFretInput){startFret = Number(startFretInput.value)}
+         if(endFretInput){let endFret: number = Number(endFretInput.value);}
+        if(difficultyWindow !== null) difficultyWindow.style.display = 'none';
     }
 
     function reduceTime(){
-        timerVal--; 
-        time.innerHTML = timerVal; 
-        if(timerVal === 0){
-            timerVal = 6; 
-            nextNoteAndResetTime();
+        if(time !== null){
+            timerVal--; 
+            time.innerHTML = timerVal.toString(); 
+            if(timerVal === 0){
+                timerVal = 6; 
+                nextNoteAndResetTime();
+            }
         }
     }
 
     function setScoreWindow(){
-        scoreWindow.style.display = 'flex';
+        if(scoreWindow !== null) scoreWindow.style.display = 'flex';
     }
     function removeScoreWindow(){
-        scoreWindow.style.display = 'none';
+        if(scoreWindow !== null) scoreWindow.style.display = 'none';
     }
 
     function endGame(){
         setScoreWindow(); 
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
-        yourScoreText.innerHTML=`Your Score: ${score}`;
+        if(yourScoreText !== null) yourScoreText.innerHTML=`Your Score: ${score}`;
         //reset local timer
-        timerVal = setTimerVal; time.innerHTML = timerVal; 
+        timerVal = setTimerVal; 
+        if(time !== null) time.innerHTML = timerVal.toString(); 
     }
 
     function reduceGlobalClock(){
         globalClockVal--;
-        globalClock.innerHTML = globalClockVal;
+        if(globalClock !== null) globalClock.innerHTML = globalClockVal.toString();
         if(globalClockVal === 1){
             clearInterval(clearGlobalTimer);
             endGame();
@@ -171,7 +180,8 @@ document.addEventListener('DOMContentLoaded', function(){
         if(started){
             setRandStringNote();
             clearInterval(clearTimer); 
-            timerVal = setTimerVal; time.innerHTML = timerVal; 
+            timerVal = setTimerVal; 
+            if(time !== null) time.innerHTML = timerVal.toString(); 
             clearTimer = setInterval(reduceTime, 1000);
         }
     }
@@ -181,47 +191,49 @@ document.addEventListener('DOMContentLoaded', function(){
         else{
             started = true;
             score = 0;
-            globalClock.innerHTML = globalClockVal;
+            if(globalClock !== null) globalClock.innerHTML = globalClockVal.toString();
             setRandStringNote();
             clearGlobalTimer = setInterval(reduceGlobalClock, 1000); 
             clearTimer = setInterval(reduceTime, 1000);   
         }
     }
 
-    increment.addEventListener('click', function(){
+    increment?.addEventListener('click', function(){
         if(started){
             //increment update score in html 
             score+=5; 
-            scoreElement.innerHTML = score;
+            if(scoreElement !== null) scoreElement.innerHTML = score.toString();
             nextNoteAndResetTime(); 
         }
         
     });
-    incorrect.addEventListener('click', nextNoteAndResetTime); 
-    playAgain.addEventListener('click', () =>{
-        started = false; 
-        removeScoreWindow(); 
-        score = 0; 
-        scoreElement.innerHTML = score;
+    incorrect?.addEventListener('click', nextNoteAndResetTime); 
+
+    playAgain?.addEventListener('click', () => {
+        started = false;
+        removeScoreWindow();
+        score = 0;
+        if(scoreElement !== null){scoreElement.innerHTML = score.toString();}
         globalClockVal = setGlobalClockVal;
         startGame();
-    });
+      }); 
 
-    returnMain.addEventListener('click', () =>{
-        scoreWindow.style.display = 'none';
-        gameScreen.style.display = 'none';
-        introScreen.style.display = 'initial';
+
+    returnMain?.addEventListener('click', () =>{
+        if(scoreWindow!== null) scoreWindow.style.display = 'none';
+        if(gameScreen !== null) gameScreen.style.display = 'none';
+        if(introScreen !== null) introScreen.style.display = 'initial';
         //all states need to be reset to initial
         started = false; 
         //need to reset global timer
         globalClockVal = setGlobalClockVal;
-        gameText.innerHTML = '';
+        if(gameText !== null) gameText.innerHTML = '';
         scoreElement!.innerHTML = '0';
     });
 
-    start.addEventListener('click', startGame); 
-    play.addEventListener('click', playGame);
-    setDifficulty.addEventListener('click', setDifficult);
-    submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
+    start?.addEventListener('click', startGame); 
+    play?.addEventListener('click', playGame);
+    setDifficulty?.addEventListener('click', setDifficult);
+    submitButtonDifficulty?.addEventListener('click', saveDifficultySettings);
 })
 
