@@ -1,5 +1,6 @@
-import express from 'express';
-import path from 'path';
+"use strict";
+const express = require('express');
+const path = require('path');
 const app = express();
 // Use the port provided by Heroku, or fallback to a default port
 const port = process.env.PORT || 3000;

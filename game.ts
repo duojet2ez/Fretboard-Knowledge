@@ -1,4 +1,4 @@
-import { autoCorrelate } from "./autoCorrelationAlgo";
+import { autoCorrelate } from "./autoCorrelationAlgo.js";
 
 document.addEventListener('DOMContentLoaded', function(){
     const strings: number[] = [1,2,3,4,5,6];
