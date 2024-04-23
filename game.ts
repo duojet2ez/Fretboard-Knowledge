@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let currentNoteString: [string, number, number, number]; 
 
     let score: number; 
-    const setTimerVal: number = 5; 
+    const setTimerVal: number = 10; 
     let timerVal: number = setTimerVal; 
     const setGlobalClockVal: number = 60;
     let globalClockVal = setGlobalClockVal; 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let clearTimer: NodeJS.Timeout; 
     let clearGlobalTimer: NodeJS.Timeout;
     let startFret: number = 0;
-    let endFret: number = 3; 
+    let endFret: number = 12; 
 
     function startAudio(){
         let source;
@@ -129,12 +129,9 @@ document.addEventListener('DOMContentLoaded', function(){
     function saveDifficultySettings(){
         const startFretInput = document.getElementById("startFret") as HTMLInputElement | null; 
         const endFretInput = document.getElementById("endingFret") as HTMLInputElement | null; 
-
-         let startFret: number;
-         let endFret: number;
          // Number(startFretInput.value); // convert string value to number
          if(startFretInput){startFret = Number(startFretInput.value)}
-         if(endFretInput){let endFret: number = Number(endFretInput.value);}
+         if(endFretInput){endFret = Number(endFretInput.value);}
         if(difficultyWindow !== null) difficultyWindow.style.display = 'none';
     }
 
