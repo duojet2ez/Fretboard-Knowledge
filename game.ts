@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const setDifficulty: HTMLElement | null = document.getElementById('difficulty');
     const difficultyWindow: HTMLElement | null = document.querySelector('.difficultyWindow');
     const submitButtonDifficulty: HTMLElement | null = document.getElementById('submitButtonDifficulty');
+    const competitiveMode: HTMLElement | null = document.getElementById('competitive_mode');
     const freqRangeLow: number = 2;
     const freqRangeHigh: number = 3; 
     let currentNoteString: [string, number, number, number]; 
@@ -232,5 +233,6 @@ document.addEventListener('DOMContentLoaded', function(){
     play?.addEventListener('click', playGame);
     setDifficulty?.addEventListener('click', setDifficult);
     submitButtonDifficulty?.addEventListener('click', saveDifficultySettings);
+    competitiveMode?.addEventListener('click', playGame);
 })
 
