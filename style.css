@@ -21,7 +21,9 @@ h2{
     margin-left: 100px;
 }
 #play,
-#difficulty{
+#difficulty,
+#competitive_mode,
+#practice_mode{
     background-color: #636967; /* Green */
     border: none;
     color: white;
@@ -96,9 +98,6 @@ h2{
     text-align: center;
 }
 
-.introScreen{
-
-}
 
 .gameScreen{
     display: none;
