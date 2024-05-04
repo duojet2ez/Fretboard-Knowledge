@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const difficultyWindow: HTMLElement | null = document.querySelector('.difficultyWindow');
     const submitButtonDifficulty: HTMLElement | null = document.getElementById('submitButtonDifficulty');
     const competitiveMode: HTMLElement | null = document.getElementById('competitive_mode');
+    const practiceMode: HTMLElement | null = document.getElementById('practice_mode');
     const freqRangeLow: number = 2;
     const freqRangeHigh: number = 3; 
     let currentNoteString: [string, number, number, number]; 
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let score: number; 
     const setTimerVal: number = 10; 
     let timerVal: number = setTimerVal; 
-    const setGlobalClockVal: number = 60;
+    const setGlobalClockVal: number = 3;
     let globalClockVal = setGlobalClockVal; 
     let started: boolean = false; 
     let clearTimer: NodeJS.Timeout; 
@@ -155,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function endGame(){
-        setScoreWindow(); 
+        //setScoreWindow(); 
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
         if(yourScoreText !== null) yourScoreText.innerHTML=`Your Score: ${score}`;
@@ -196,6 +197,10 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    function enterPracticeMode(){
+        playGame();
+    }
+
     increment?.addEventListener('click', function(){
         if(started){
             //increment update score in html 
@@ -234,5 +239,6 @@ document.addEventListener('DOMContentLoaded', function(){
     setDifficulty?.addEventListener('click', setDifficult);
     submitButtonDifficulty?.addEventListener('click', saveDifficultySettings);
     competitiveMode?.addEventListener('click', playGame);
+    practiceMode?.addEventListener('click', enterPracticeMode);
 })
 

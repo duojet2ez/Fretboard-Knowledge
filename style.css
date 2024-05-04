@@ -35,8 +35,11 @@ h2{
     margin-bottom: 20px; /* Add vertical space between buttons */
 }
 #increment,
-#incorrect,
-#start {
+#incorrect{
+    display: none;
+}
+#start,
+#settings {
     background-color: #636967; /* Green */
     border: none;
     color: white;

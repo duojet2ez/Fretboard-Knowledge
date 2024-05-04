@@ -37,13 +37,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const difficultyWindow = document.querySelector('.difficultyWindow');
     const submitButtonDifficulty = document.getElementById('submitButtonDifficulty');
     const competitiveMode = document.getElementById('competitive_mode');
+    const practiceMode = document.getElementById('practice_mode');
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
     let currentNoteString;
     let score;
     const setTimerVal = 10;
     let timerVal = setTimerVal;
-    const setGlobalClockVal = 60;
+    const setGlobalClockVal = 3;
     let globalClockVal = setGlobalClockVal;
     let started = false;
     let clearTimer;
@@ -153,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scoreWindow.style.display = 'none';
     }
     function endGame() {
-        setScoreWindow();
+        //setScoreWindow(); 
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
         if (yourScoreText !== null)
@@ -196,6 +197,9 @@ document.addEventListener('DOMContentLoaded', function () {
             clearTimer = setInterval(reduceTime, 1000);
         }
     }
+    function enterPracticeMode() {
+        playGame();
+    }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {
             //increment update score in html 
@@ -236,4 +240,5 @@ document.addEventListener('DOMContentLoaded', function () {
     setDifficulty === null || setDifficulty === void 0 ? void 0 : setDifficulty.addEventListener('click', setDifficult);
     submitButtonDifficulty === null || submitButtonDifficulty === void 0 ? void 0 : submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
     competitiveMode === null || competitiveMode === void 0 ? void 0 : competitiveMode.addEventListener('click', playGame);
+    practiceMode === null || practiceMode === void 0 ? void 0 : practiceMode.addEventListener('click', enterPracticeMode);
 });
