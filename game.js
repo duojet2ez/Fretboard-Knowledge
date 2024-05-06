@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
     let currentNoteString;
-    let inCompetitiveMode = false;
     let score;
     const setTimerVal = 10;
     let timerVal = setTimerVal;
@@ -105,6 +104,10 @@ document.addEventListener('DOMContentLoaded', function () {
             gameText.innerHTML = `${noteString[0]} on the ${noteString[1]} string`;
     }
     function setDifficult() {
+        if (difficultyWindow !== null)
+            difficultyWindow.style.display = 'initial';
+    }
+    function setSettings() {
         if (difficultyWindow !== null)
             difficultyWindow.style.display = 'initial';
     }
@@ -245,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
     start === null || start === void 0 ? void 0 : start.addEventListener('click', startGame);
     play === null || play === void 0 ? void 0 : play.addEventListener('click', playGame);
     setDifficulty === null || setDifficulty === void 0 ? void 0 : setDifficulty.addEventListener('click', setDifficult);
+    settings === null || settings === void 0 ? void 0 : settings.addEventListener('click', setSettings);
     submitButtonDifficulty === null || submitButtonDifficulty === void 0 ? void 0 : submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
     competitiveMode === null || competitiveMode === void 0 ? void 0 : competitiveMode.addEventListener('click', enterCompetitiveMode);
     practiceMode === null || practiceMode === void 0 ? void 0 : practiceMode.addEventListener('click', enterPracticeMode);

@@ -107,6 +107,10 @@ document.addEventListener('DOMContentLoaded', function(){
         if(difficultyWindow !== null) difficultyWindow.style.display = 'initial';
 
     }
+
+    function setSettings(){
+        if(difficultyWindow !== null) difficultyWindow.style.display = 'initial';
+    }
     
     //takes in 3d array of fretboard and a start and end range, returns a 2d array of possible notes with corresponding strings e.g. [['A', 5], ['B', 2]]
     function getValuesFromFretboard(fretboardArr, start, end){
@@ -244,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function(){
     start?.addEventListener('click', startGame); 
     play?.addEventListener('click', playGame);
     setDifficulty?.addEventListener('click', setDifficult);
+    settings?.addEventListener('click', setSettings);
     submitButtonDifficulty?.addEventListener('click', saveDifficultySettings);
     competitiveMode?.addEventListener('click', enterCompetitiveMode);
     practiceMode?.addEventListener('click', enterPracticeMode);
