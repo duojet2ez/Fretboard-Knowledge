@@ -1,5 +1,6 @@
 import { autoCorrelate } from "./autoCorrelationAlgo.js";
 document.addEventListener('DOMContentLoaded', function () {
+    var _a;
     const strings = [1, 2, 3, 4, 5, 6];
     const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A#', 'C#', 'D#', 'F#', 'G#', 'Ab', 'Bb', 'Db', 'Eb', 'Gb'];
     const fretboard = [[['E', 6, 81, 83], ['A', 5, 109, 111], ['D', 4, 146, 148], ['G', 3, 195, 197], ['B', 2, 246, 248], ['E', 1, 329, 331]], //fret 0
@@ -39,13 +40,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const competitiveMode = document.getElementById('competitive_mode');
     const practiceMode = document.getElementById('practice_mode');
     const settings = document.getElementById('settings');
+    const timePerNote = Number((_a = document.getElementById('timePerNote')) === null || _a === void 0 ? void 0 : _a.value) || 0;
+    const timePerNoteInput = document.getElementById('timePerNote');
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
     let currentNoteString;
     let score;
-    const setTimerVal = 10;
+    let setTimerVal = timePerNote;
     let timerVal = setTimerVal;
-    const setGlobalClockVal = 3;
+    const setGlobalClockVal = 5;
     let globalClockVal = setGlobalClockVal;
     let started = false;
     let clearTimer;
@@ -210,6 +213,9 @@ document.addEventListener('DOMContentLoaded', function () {
             settings.style.display = 'none';
         playGame();
     }
+    function timePerNoteSetting() {
+        setTimerVal = Number(timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.value) || 0;
+    }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {
             //increment update score in html 
@@ -252,4 +258,5 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButtonDifficulty === null || submitButtonDifficulty === void 0 ? void 0 : submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
     competitiveMode === null || competitiveMode === void 0 ? void 0 : competitiveMode.addEventListener('click', enterCompetitiveMode);
     practiceMode === null || practiceMode === void 0 ? void 0 : practiceMode.addEventListener('click', enterPracticeMode);
+    timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.addEventListener('input', timePerNoteSetting);
 });

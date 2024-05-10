@@ -42,14 +42,16 @@ document.addEventListener('DOMContentLoaded', function(){
     const competitiveMode: HTMLElement | null = document.getElementById('competitive_mode');
     const practiceMode: HTMLElement | null = document.getElementById('practice_mode');
     const settings: HTMLElement | null = document.getElementById('settings'); 
+    const timePerNote: number = Number((document.getElementById('timePerNote') as HTMLInputElement | null)?.value) || 0;
+    const timePerNoteInput = document.getElementById('timePerNote') as HTMLInputElement | null;
     const freqRangeLow: number = 2;
     const freqRangeHigh: number = 3; 
     let currentNoteString: [string, number, number, number]; 
 
     let score: number; 
-    const setTimerVal: number = 10; 
+    let setTimerVal: number = timePerNote;
     let timerVal: number = setTimerVal; 
-    const setGlobalClockVal: number = 3;
+    const setGlobalClockVal: number = 5;
     let globalClockVal = setGlobalClockVal; 
     let started: boolean = false; 
     let clearTimer: NodeJS.Timeout; 
@@ -212,6 +214,10 @@ document.addEventListener('DOMContentLoaded', function(){
         playGame();
     }
 
+    function timePerNoteSetting(){
+        setTimerVal = Number(timePerNoteInput?.value) || 0; 
+    }
+
     increment?.addEventListener('click', function(){
         if(started){
             //increment update score in html 
@@ -252,5 +258,6 @@ document.addEventListener('DOMContentLoaded', function(){
     submitButtonDifficulty?.addEventListener('click', saveDifficultySettings);
     competitiveMode?.addEventListener('click', enterCompetitiveMode);
     practiceMode?.addEventListener('click', enterPracticeMode);
+    timePerNoteInput?.addEventListener('input', timePerNoteSetting); 
 })
 
