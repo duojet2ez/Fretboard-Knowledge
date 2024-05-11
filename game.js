@@ -42,13 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const settings = document.getElementById('settings');
     const timePerNote = Number((_a = document.getElementById('timePerNote')) === null || _a === void 0 ? void 0 : _a.value) || 0;
     const timePerNoteInput = document.getElementById('timePerNote');
+    const timePerGameInput = document.getElementById('timePerGame');
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
     let currentNoteString;
     let score;
     let setTimerVal = timePerNote;
     let timerVal = setTimerVal;
-    const setGlobalClockVal = 5;
+    let setGlobalClockVal = 10;
     let globalClockVal = setGlobalClockVal;
     let started = false;
     let clearTimer;
@@ -215,6 +216,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function timePerNoteSetting() {
         setTimerVal = Number(timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.value) || 0;
+        if (time != null) {
+            time.innerHTML = setTimerVal.toString();
+            timerVal = setTimerVal;
+        }
+    }
+    function timePerGameSetting() {
+        setGlobalClockVal = Number(timePerGameInput === null || timePerGameInput === void 0 ? void 0 : timePerGameInput.value) || 0;
+        if (globalClock != null) {
+            globalClock.innerHTML = setGlobalClockVal.toString();
+            globalClockVal = setGlobalClockVal;
+        }
     }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {
@@ -258,5 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButtonDifficulty === null || submitButtonDifficulty === void 0 ? void 0 : submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
     competitiveMode === null || competitiveMode === void 0 ? void 0 : competitiveMode.addEventListener('click', enterCompetitiveMode);
     practiceMode === null || practiceMode === void 0 ? void 0 : practiceMode.addEventListener('click', enterPracticeMode);
-    timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.addEventListener('input', timePerNoteSetting);
+    //settings
+    timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.addEventListener('input', timePerNoteSetting); //detects a change in value and calls timerPerNoteSetting for every change 
+    timePerGameInput === null || timePerGameInput === void 0 ? void 0 : timePerGameInput.addEventListener('input', timePerGameSetting);
 });

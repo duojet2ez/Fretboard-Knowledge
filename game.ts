@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const settings: HTMLElement | null = document.getElementById('settings'); 
     const timePerNote: number = Number((document.getElementById('timePerNote') as HTMLInputElement | null)?.value) || 0;
     const timePerNoteInput = document.getElementById('timePerNote') as HTMLInputElement | null;
+    const timePerGameInput = document.getElementById('timePerGame') as HTMLInputElement | null;
     const freqRangeLow: number = 2;
     const freqRangeHigh: number = 3; 
     let currentNoteString: [string, number, number, number]; 
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let score: number; 
     let setTimerVal: number = timePerNote;
     let timerVal: number = setTimerVal; 
-    const setGlobalClockVal: number = 5;
+    let setGlobalClockVal: number = 10;
     let globalClockVal = setGlobalClockVal; 
     let started: boolean = false; 
     let clearTimer: NodeJS.Timeout; 
@@ -216,6 +217,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function timePerNoteSetting(){
         setTimerVal = Number(timePerNoteInput?.value) || 0; 
+        if(time != null) {time.innerHTML = setTimerVal.toString(); timerVal = setTimerVal;} 
+    }
+
+    function timePerGameSetting(){
+        setGlobalClockVal = Number(timePerGameInput?.value) || 0; 
+        if(globalClock != null) {globalClock.innerHTML = setGlobalClockVal.toString(); globalClockVal = setGlobalClockVal;}
+
     }
 
     increment?.addEventListener('click', function(){
@@ -258,6 +266,9 @@ document.addEventListener('DOMContentLoaded', function(){
     submitButtonDifficulty?.addEventListener('click', saveDifficultySettings);
     competitiveMode?.addEventListener('click', enterCompetitiveMode);
     practiceMode?.addEventListener('click', enterPracticeMode);
-    timePerNoteInput?.addEventListener('input', timePerNoteSetting); 
+    //settings
+    timePerNoteInput?.addEventListener('input', timePerNoteSetting);  //detects a change in value and calls timerPerNoteSetting for every change 
+    timePerGameInput?.addEventListener('input', timePerGameSetting); 
+
 })
 
