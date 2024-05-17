@@ -227,8 +227,14 @@ document.addEventListener('DOMContentLoaded', function(){
         if(globalClock != null) {globalClock.innerHTML = setGlobalClockVal.toString(); globalClockVal = setGlobalClockVal;}
 
     }
-    function disableTimerSetting(){
-        console.log('changed'); 
+    function disableTimerSetting(e){
+        if(e.target.value === "yes"){
+            console.log('yes need to hide and add int max');
+        } 
+        else{
+
+            console.log('no need to keep previous timer value'); 
+        }
     }
 
     increment?.addEventListener('click', function(){

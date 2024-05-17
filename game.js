@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const timePerNote = Number((_a = document.getElementById('timePerNote')) === null || _a === void 0 ? void 0 : _a.value) || 0;
     const timePerNoteInput = document.getElementById('timePerNote');
     const timePerGameInput = document.getElementById('timePerGame');
+    const disableTimer = document.getElementById("disableTimer");
     const localTimeClockToDisable = document.getElementById('localTimeClock');
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
@@ -229,6 +230,14 @@ document.addEventListener('DOMContentLoaded', function () {
             globalClockVal = setGlobalClockVal;
         }
     }
+    function disableTimerSetting(e) {
+        if (e.target.value === "yes") {
+            console.log('yes need to hide and add int max');
+        }
+        else {
+            console.log('no need to keep previous timer value');
+        }
+    }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {
             //increment update score in html 
@@ -274,4 +283,5 @@ document.addEventListener('DOMContentLoaded', function () {
     //settings
     timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.addEventListener('input', timePerNoteSetting); //detects a change in value and calls timerPerNoteSetting for every change 
     timePerGameInput === null || timePerGameInput === void 0 ? void 0 : timePerGameInput.addEventListener('input', timePerGameSetting);
+    disableTimer === null || disableTimer === void 0 ? void 0 : disableTimer.addEventListener('change', disableTimerSetting);
 });
