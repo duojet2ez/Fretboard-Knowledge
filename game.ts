@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const timePerNote: number = Number((document.getElementById('timePerNote') as HTMLInputElement | null)?.value) || 0;
     const timePerNoteInput = document.getElementById('timePerNote') as HTMLInputElement | null;
     const timePerGameInput = document.getElementById('timePerGame') as HTMLInputElement | null;
+    const localTimeClockToDisable: HTMLElement | null = document.getElementById('localTimeClock');
     const freqRangeLow: number = 2;
     const freqRangeHigh: number = 3; 
     let currentNoteString: [string, number, number, number]; 

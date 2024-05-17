@@ -1,0 +1,13 @@
+Need a play again button in practice mode/way to restart game
+
+Need an option to disable note timer 
+    - current aproach is to hide the timer value by using dieplay none in css
+        - however timer still decrments it is just invisible. Possible workaround set to infinite time if yes is selected
+
+        To do: attach a listener on disable note timer. This toggles between 'yes' and 'no'
+            If 'yes' is selected set display: none for localNoteTimer html element AND set the local clock to Number.MAX_SAFE_INTEGER
+            else make sure display for timer element is activie AND initial local clock value holds
+
+
+
+Need an option to disable game timer
