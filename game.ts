@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
     [['E', 6, 164, 166], ['A', 5, 219, 221], ['D', 4, 293, 295], ['G', 3, 391, 393], ['B', 2, 493, 495], ['E', 1, 658, 660]]  //fret 12
 ]; 
     
+
     const scoreElement: HTMLElement | null = document.getElementById('score');
     const increment: HTMLElement | null = document.getElementById('increment');
     const stringValue: HTMLElement | null = document.getElementById('num');
@@ -47,10 +48,10 @@ document.addEventListener('DOMContentLoaded', function(){
     const timePerGameInput = document.getElementById('timePerGame') as HTMLInputElement | null;
     const disableTimer: HTMLElement | null = document.getElementById("disableTimer"); 
     const localTimeClockToDisable: HTMLElement | null = document.getElementById('localTimeClock');
+    const globalTimerToDisable: HTMLElement | null = document.getElementById('disableGameTimer');
     const freqRangeLow: number = 2;
     const freqRangeHigh: number = 3; 
     let currentNoteString: [string, number, number, number]; 
-
     let score: number; 
     let setTimerVal: number = timePerNote;
     let timerVal: number = setTimerVal; 
@@ -61,6 +62,9 @@ document.addEventListener('DOMContentLoaded', function(){
     let clearGlobalTimer: NodeJS.Timeout;
     let startFret: number = 0;
     let endFret: number = 12; 
+    let wasNoteTimerDisabled: boolean = false; 
+    let wasGlobalTimerDisabled: boolean = false; 
+
 
     function startAudio(){
         let source;
@@ -90,8 +94,8 @@ document.addEventListener('DOMContentLoaded', function(){
             }
             processAudio();
         });
-
     }
+
     function playGame(){
         //hide introScreen
         if(introScreen !== null) introScreen.style.display = 'none';
@@ -137,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
 
-
     function saveDifficultySettings(){
         const startFretInput = document.getElementById("startFret") as HTMLInputElement | null; 
         const endFretInput = document.getElementById("endingFret") as HTMLInputElement | null; 
@@ -149,11 +152,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function reduceTime(){
         if(time !== null){
-            timerVal--; 
-            time.innerHTML = timerVal.toString(); 
-            if(timerVal === 0){
-                timerVal = 6; 
-                nextNoteAndResetTime();
+            if(!wasNoteTimerDisabled){
+                timerVal--; 
+                time.innerHTML = timerVal.toString(); 
+                if(timerVal === 0){
+                    timerVal = 6; 
+                    nextNoteAndResetTime();
+                }
             }
         }
     }
@@ -176,11 +181,13 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function reduceGlobalClock(){
-        globalClockVal--;
-        if(globalClock !== null) globalClock.innerHTML = globalClockVal.toString();
-        if(globalClockVal === 1){
-            clearInterval(clearGlobalTimer);
-            endGame();
+        if(!wasGlobalTimerDisabled){
+            globalClockVal--;
+            if(globalClock !== null) globalClock.innerHTML = globalClockVal.toString();
+            if(globalClockVal === 1){
+                clearInterval(clearGlobalTimer);
+                endGame();
+            }
         }
     }
 
@@ -227,14 +234,35 @@ document.addEventListener('DOMContentLoaded', function(){
         if(globalClock != null) {globalClock.innerHTML = setGlobalClockVal.toString(); globalClockVal = setGlobalClockVal;}
 
     }
-    function disableTimerSetting(e){
+    function disableNoteTimerSetting(e){
         if(e.target.value === "yes"){
-            console.log('yes need to hide and add int max');
+            if(localTimeClockToDisable != null){
+                wasNoteTimerDisabled = true;
+                localTimeClockToDisable.style.display = 'none'; 
+            }
         } 
         else{
-
-            console.log('no need to keep previous timer value'); 
+            if(localTimeClockToDisable != null){
+                wasNoteTimerDisabled = false;
+                localTimeClockToDisable.style.display = 'initial'; 
+            }
         }
+    }
+
+    function disableGlobalTimerSetting(e){
+        if(e.target.value === "yes"){
+            if(globalClock != null){
+                globalClock.style.display = 'none';
+                wasGlobalTimerDisabled = true;
+            }
+        } 
+        else{
+            if(globalClock != null){
+                globalClock.style.display = 'initial'; 
+                wasGlobalTimerDisabled = false;
+            }
+        }
+
     }
 
     increment?.addEventListener('click', function(){
@@ -280,7 +308,8 @@ document.addEventListener('DOMContentLoaded', function(){
     //settings
     timePerNoteInput?.addEventListener('input', timePerNoteSetting);  //detects a change in value and calls timerPerNoteSetting for every change 
     timePerGameInput?.addEventListener('input', timePerGameSetting); 
-    disableTimer?.addEventListener('change', disableTimerSetting); 
+    disableTimer?.addEventListener('change', disableNoteTimerSetting); 
+    globalTimerToDisable?.addEventListener('change', disableGlobalTimerSetting); 
 
 })
 

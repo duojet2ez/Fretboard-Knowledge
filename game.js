@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const timePerGameInput = document.getElementById('timePerGame');
     const disableTimer = document.getElementById("disableTimer");
     const localTimeClockToDisable = document.getElementById('localTimeClock');
+    const globalTimerToDisable = document.getElementById('disableGameTimer');
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
     let currentNoteString;
@@ -58,6 +59,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let clearGlobalTimer;
     let startFret = 0;
     let endFret = 12;
+    let wasNoteTimerDisabled = false;
+    let wasGlobalTimerDisabled = false;
     function startAudio() {
         let source;
         let audioContext = new AudioContext();
@@ -148,11 +151,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function reduceTime() {
         if (time !== null) {
-            timerVal--;
-            time.innerHTML = timerVal.toString();
-            if (timerVal === 0) {
-                timerVal = 6;
-                nextNoteAndResetTime();
+            if (!wasNoteTimerDisabled) {
+                timerVal--;
+                time.innerHTML = timerVal.toString();
+                if (timerVal === 0) {
+                    timerVal = 6;
+                    nextNoteAndResetTime();
+                }
             }
         }
     }
@@ -176,12 +181,14 @@ document.addEventListener('DOMContentLoaded', function () {
             time.innerHTML = timerVal.toString();
     }
     function reduceGlobalClock() {
-        globalClockVal--;
-        if (globalClock !== null)
-            globalClock.innerHTML = globalClockVal.toString();
-        if (globalClockVal === 1) {
-            clearInterval(clearGlobalTimer);
-            endGame();
+        if (!wasGlobalTimerDisabled) {
+            globalClockVal--;
+            if (globalClock !== null)
+                globalClock.innerHTML = globalClockVal.toString();
+            if (globalClockVal === 1) {
+                clearInterval(clearGlobalTimer);
+                endGame();
+            }
         }
     }
     function nextNoteAndResetTime() {
@@ -230,12 +237,32 @@ document.addEventListener('DOMContentLoaded', function () {
             globalClockVal = setGlobalClockVal;
         }
     }
-    function disableTimerSetting(e) {
+    function disableNoteTimerSetting(e) {
         if (e.target.value === "yes") {
-            console.log('yes need to hide and add int max');
+            if (localTimeClockToDisable != null) {
+                wasNoteTimerDisabled = true;
+                localTimeClockToDisable.style.display = 'none';
+            }
         }
         else {
-            console.log('no need to keep previous timer value');
+            if (localTimeClockToDisable != null) {
+                wasNoteTimerDisabled = false;
+                localTimeClockToDisable.style.display = 'initial';
+            }
+        }
+    }
+    function disableGlobalTimerSetting(e) {
+        if (e.target.value === "yes") {
+            if (globalClock != null) {
+                globalClock.style.display = 'none';
+                wasGlobalTimerDisabled = true;
+            }
+        }
+        else {
+            if (globalClock != null) {
+                globalClock.style.display = 'initial';
+                wasGlobalTimerDisabled = false;
+            }
         }
     }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
@@ -283,5 +310,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //settings
     timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.addEventListener('input', timePerNoteSetting); //detects a change in value and calls timerPerNoteSetting for every change 
     timePerGameInput === null || timePerGameInput === void 0 ? void 0 : timePerGameInput.addEventListener('input', timePerGameSetting);
-    disableTimer === null || disableTimer === void 0 ? void 0 : disableTimer.addEventListener('change', disableTimerSetting);
+    disableTimer === null || disableTimer === void 0 ? void 0 : disableTimer.addEventListener('change', disableNoteTimerSetting);
+    globalTimerToDisable === null || globalTimerToDisable === void 0 ? void 0 : globalTimerToDisable.addEventListener('change', disableGlobalTimerSetting);
 });
