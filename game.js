@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         [['E', 6, 164, 166], ['A', 5, 219, 221], ['D', 4, 293, 295], ['G', 3, 391, 393], ['B', 2, 493, 495], ['E', 1, 658, 660]] //fret 12
     ];
     const scoreElement = document.getElementById('score');
+    const scoreText = document.getElementById('scoreText');
     const increment = document.getElementById('increment');
     const stringValue = document.getElementById('num');
     const noteValue = document.getElementById('note');
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const disableTimer = document.getElementById("disableTimer");
     const localTimeClockToDisable = document.getElementById('localTimeClock');
     const globalTimerToDisable = document.getElementById('disableGameTimer');
+    const removeScoreSetting = document.getElementById('removeScore');
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
     let currentNoteString;
@@ -265,6 +267,20 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
+    function removeScore(e) {
+        if (e.target.value === "yes") {
+            if (scoreElement != null && scoreText != null) {
+                scoreElement.style.display = 'none';
+                scoreText.style.display = 'none';
+            }
+        }
+        else {
+            if (scoreElement != null && scoreText != null) {
+                scoreElement.style.display = 'initial';
+                scoreText.style.display = 'initial';
+            }
+        }
+    }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {
             //increment update score in html 
@@ -312,4 +328,5 @@ document.addEventListener('DOMContentLoaded', function () {
     timePerGameInput === null || timePerGameInput === void 0 ? void 0 : timePerGameInput.addEventListener('input', timePerGameSetting);
     disableTimer === null || disableTimer === void 0 ? void 0 : disableTimer.addEventListener('change', disableNoteTimerSetting);
     globalTimerToDisable === null || globalTimerToDisable === void 0 ? void 0 : globalTimerToDisable.addEventListener('change', disableGlobalTimerSetting);
+    removeScoreSetting === null || removeScoreSetting === void 0 ? void 0 : removeScoreSetting.addEventListener('change', removeScore);
 });

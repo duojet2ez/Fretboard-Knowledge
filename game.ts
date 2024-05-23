@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function(){
     
 
     const scoreElement: HTMLElement | null = document.getElementById('score');
+    const scoreText: HTMLElement | null = document.getElementById('scoreText');
     const increment: HTMLElement | null = document.getElementById('increment');
     const stringValue: HTMLElement | null = document.getElementById('num');
     const noteValue: HTMLElement | null = document.getElementById('note'); 
@@ -49,6 +50,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const disableTimer: HTMLElement | null = document.getElementById("disableTimer"); 
     const localTimeClockToDisable: HTMLElement | null = document.getElementById('localTimeClock');
     const globalTimerToDisable: HTMLElement | null = document.getElementById('disableGameTimer');
+    const removeScoreSetting: HTMLElement | null = document.getElementById('removeScore');
+
+
     const freqRangeLow: number = 2;
     const freqRangeHigh: number = 3; 
     let currentNoteString: [string, number, number, number]; 
@@ -264,6 +268,21 @@ document.addEventListener('DOMContentLoaded', function(){
         }
 
     }
+    function removeScore(e){
+        if(e.target.value === "yes"){
+            if(scoreElement != null && scoreText != null){
+                scoreElement.style.display = 'none';
+                scoreText.style.display = 'none';
+            }
+        } 
+        else{
+            if(scoreElement != null && scoreText != null){
+                scoreElement.style.display = 'initial'; 
+                scoreText.style.display = 'initial';
+            }
+        }
+
+    }
 
     increment?.addEventListener('click', function(){
         if(started){
@@ -310,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function(){
     timePerGameInput?.addEventListener('input', timePerGameSetting); 
     disableTimer?.addEventListener('change', disableNoteTimerSetting); 
     globalTimerToDisable?.addEventListener('change', disableGlobalTimerSetting); 
+    removeScoreSetting?.addEventListener('change', removeScore); 
 
 })
 
