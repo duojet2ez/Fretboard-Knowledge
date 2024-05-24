@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function(){
     [['E', 6, 164, 166], ['A', 5, 219, 221], ['D', 4, 293, 295], ['G', 3, 391, 393], ['B', 2, 493, 495], ['E', 1, 658, 660]]  //fret 12
 ]; 
     
-
     const scoreElement: HTMLElement | null = document.getElementById('score');
     const scoreText: HTMLElement | null = document.getElementById('scoreText');
     const increment: HTMLElement | null = document.getElementById('increment');
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const time: HTMLElement | null = document.getElementById('currTime'); 
     const start: HTMLElement | null = document.getElementById('start');
     const text: HTMLElement | null = document.getElementById('text'); 
-    const incorrect: HTMLElement | null = document.getElementById('incorrect'); 
     const globalClock: HTMLElement | null = document.getElementById('global-clock');
     const scoreWindow: HTMLElement | null = document.querySelector('.window');
     const yourScoreText: HTMLElement | null = document.querySelector('.score_text'); 
@@ -48,18 +46,19 @@ document.addEventListener('DOMContentLoaded', function(){
     const timePerNoteInput = document.getElementById('timePerNote') as HTMLInputElement | null;
     const timePerGameInput = document.getElementById('timePerGame') as HTMLInputElement | null;
     const disableTimer: HTMLElement | null = document.getElementById("disableTimer"); 
+    const disablePitchDetection: HTMLElement | null = document.getElementById("disablePitchDetection"); 
     const localTimeClockToDisable: HTMLElement | null = document.getElementById('localTimeClock');
     const globalTimerToDisable: HTMLElement | null = document.getElementById('disableGameTimer');
     const removeScoreSetting: HTMLElement | null = document.getElementById('removeScore');
 
-
+    let isPitchDetectionEnabled: boolean = true;
     const freqRangeLow: number = 2;
     const freqRangeHigh: number = 3; 
     let currentNoteString: [string, number, number, number]; 
     let score: number; 
     let setTimerVal: number = timePerNote;
     let timerVal: number = setTimerVal; 
-    let setGlobalClockVal: number = 10;
+    let setGlobalClockVal: number = 60;
     let globalClockVal = setGlobalClockVal; 
     let started: boolean = false; 
     let clearTimer: NodeJS.Timeout; 
@@ -86,13 +85,15 @@ document.addEventListener('DOMContentLoaded', function(){
               analyser.getFloatTimeDomainData(dataArray); 
               //dataArray represents audioBuffer
               let freq = autoCorrelate(dataArray, sr);
-             
-              //if gameStarted is true and note detected within frequency 
-              if(started && typeof currentNoteString[freqRangeHigh] === 'number' && typeof currentNoteString[freqRangeLow] === 'number' && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
-                //increment score and go to next
-                score+=5; 
-                if(scoreElement !== null)scoreElement.innerHTML = `${score}`;
-                nextNoteAndResetTime();  
+
+              if(isPitchDetectionEnabled){
+                //if gameStarted is true and note detected within frequency 
+                if(started && typeof currentNoteString[freqRangeHigh] === 'number' && typeof currentNoteString[freqRangeLow] === 'number' && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
+                    //increment score and go to next
+                    score+=5; 
+                    if(scoreElement !== null)scoreElement.innerHTML = `${score}`;
+                    nextNoteAndResetTime();  
+              }
               }
               requestAnimationFrame(processAudio); 
             }
@@ -284,6 +285,21 @@ document.addEventListener('DOMContentLoaded', function(){
 
     }
 
+    function disablePitchDetectionSetting(e){
+        if(e.target.value === "yes"){
+            if(disablePitchDetection != null && increment != null){
+                increment.style.display = 'inline-block'; 
+                isPitchDetectionEnabled = false;
+            }
+        } 
+        else{
+            if(disablePitchDetection != null && increment != null){
+                increment.style.display = 'none';
+                isPitchDetectionEnabled = true;
+            }
+        }
+    }
+
     increment?.addEventListener('click', function(){
         if(started){
             //increment update score in html 
@@ -293,7 +309,6 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         
     });
-    incorrect?.addEventListener('click', nextNoteAndResetTime); 
 
     playAgain?.addEventListener('click', () => {
         started = false;
@@ -317,6 +332,8 @@ document.addEventListener('DOMContentLoaded', function(){
         scoreElement!.innerHTML = '0';
     });
 
+
+    //interaction events buttons
     start?.addEventListener('click', startGame); 
     play?.addEventListener('click', playGame);
     setDifficulty?.addEventListener('click', setDifficult);
@@ -324,12 +341,13 @@ document.addEventListener('DOMContentLoaded', function(){
     submitButtonDifficulty?.addEventListener('click', saveDifficultySettings);
     competitiveMode?.addEventListener('click', enterCompetitiveMode);
     practiceMode?.addEventListener('click', enterPracticeMode);
+    
     //settings
     timePerNoteInput?.addEventListener('input', timePerNoteSetting);  //detects a change in value and calls timerPerNoteSetting for every change 
     timePerGameInput?.addEventListener('input', timePerGameSetting); 
     disableTimer?.addEventListener('change', disableNoteTimerSetting); 
     globalTimerToDisable?.addEventListener('change', disableGlobalTimerSetting); 
     removeScoreSetting?.addEventListener('change', removeScore); 
-
+    disablePitchDetection?.addEventListener('change', disablePitchDetectionSetting); 
 })
 

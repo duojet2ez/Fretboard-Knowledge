@@ -34,12 +34,9 @@ h2{
     font-size: 16px;
     margin-bottom: 20px; /* Add vertical space between buttons */
 }
-#increment,
-#incorrect{
-    display: none;
-}
+
 #start,
-#settings {
+#settings{
     background-color: #636967; /* Green */
     border: none;
     color: white;
@@ -47,6 +44,19 @@ h2{
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    font-size: 16px;
+    margin-bottom: 20px; /* Add vertical space between buttons */
+
+}
+#increment {
+    display: none;
+    /*display needs to be set to inline-block*/
+    background-color: #636967; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
     font-size: 16px;
     margin-bottom: 20px; /* Add vertical space between buttons */
 }
@@ -126,6 +136,3 @@ h2{
     height: 600px;
 }
 
-#localTimeClock{
-   
-}

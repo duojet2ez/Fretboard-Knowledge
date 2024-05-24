@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const time = document.getElementById('currTime');
     const start = document.getElementById('start');
     const text = document.getElementById('text');
-    const incorrect = document.getElementById('incorrect');
     const globalClock = document.getElementById('global-clock');
     const scoreWindow = document.querySelector('.window');
     const yourScoreText = document.querySelector('.score_text');
@@ -45,16 +44,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const timePerNoteInput = document.getElementById('timePerNote');
     const timePerGameInput = document.getElementById('timePerGame');
     const disableTimer = document.getElementById("disableTimer");
+    const disablePitchDetection = document.getElementById("disablePitchDetection");
     const localTimeClockToDisable = document.getElementById('localTimeClock');
     const globalTimerToDisable = document.getElementById('disableGameTimer');
     const removeScoreSetting = document.getElementById('removeScore');
+    let isPitchDetectionEnabled = true;
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
     let currentNoteString;
     let score;
     let setTimerVal = timePerNote;
     let timerVal = setTimerVal;
-    let setGlobalClockVal = 10;
+    let setGlobalClockVal = 60;
     let globalClockVal = setGlobalClockVal;
     let started = false;
     let clearTimer;
@@ -79,13 +80,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 analyser.getFloatTimeDomainData(dataArray);
                 //dataArray represents audioBuffer
                 let freq = autoCorrelate(dataArray, sr);
-                //if gameStarted is true and note detected within frequency 
-                if (started && typeof currentNoteString[freqRangeHigh] === 'number' && typeof currentNoteString[freqRangeLow] === 'number' && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])) {
-                    //increment score and go to next
-                    score += 5;
-                    if (scoreElement !== null)
-                        scoreElement.innerHTML = `${score}`;
-                    nextNoteAndResetTime();
+                if (isPitchDetectionEnabled) {
+                    //if gameStarted is true and note detected within frequency 
+                    if (started && typeof currentNoteString[freqRangeHigh] === 'number' && typeof currentNoteString[freqRangeLow] === 'number' && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])) {
+                        //increment score and go to next
+                        score += 5;
+                        if (scoreElement !== null)
+                            scoreElement.innerHTML = `${score}`;
+                        nextNoteAndResetTime();
+                    }
                 }
                 requestAnimationFrame(processAudio);
             }
@@ -281,6 +284,20 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
+    function disablePitchDetectionSetting(e) {
+        if (e.target.value === "yes") {
+            if (disablePitchDetection != null && increment != null) {
+                increment.style.display = 'inline-block';
+                isPitchDetectionEnabled = false;
+            }
+        }
+        else {
+            if (disablePitchDetection != null && increment != null) {
+                increment.style.display = 'none';
+                isPitchDetectionEnabled = true;
+            }
+        }
+    }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {
             //increment update score in html 
@@ -290,7 +307,6 @@ document.addEventListener('DOMContentLoaded', function () {
             nextNoteAndResetTime();
         }
     });
-    incorrect === null || incorrect === void 0 ? void 0 : incorrect.addEventListener('click', nextNoteAndResetTime);
     playAgain === null || playAgain === void 0 ? void 0 : playAgain.addEventListener('click', () => {
         started = false;
         removeScoreWindow();
@@ -316,6 +332,7 @@ document.addEventListener('DOMContentLoaded', function () {
             gameText.innerHTML = '';
         scoreElement.innerHTML = '0';
     });
+    //interaction events buttons
     start === null || start === void 0 ? void 0 : start.addEventListener('click', startGame);
     play === null || play === void 0 ? void 0 : play.addEventListener('click', playGame);
     setDifficulty === null || setDifficulty === void 0 ? void 0 : setDifficulty.addEventListener('click', setDifficult);
@@ -329,4 +346,5 @@ document.addEventListener('DOMContentLoaded', function () {
     disableTimer === null || disableTimer === void 0 ? void 0 : disableTimer.addEventListener('change', disableNoteTimerSetting);
     globalTimerToDisable === null || globalTimerToDisable === void 0 ? void 0 : globalTimerToDisable.addEventListener('change', disableGlobalTimerSetting);
     removeScoreSetting === null || removeScoreSetting === void 0 ? void 0 : removeScoreSetting.addEventListener('change', removeScore);
+    disablePitchDetection === null || disablePitchDetection === void 0 ? void 0 : disablePitchDetection.addEventListener('change', disablePitchDetectionSetting);
 });
