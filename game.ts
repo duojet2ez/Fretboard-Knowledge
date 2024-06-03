@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function(){
               analyser.getFloatTimeDomainData(dataArray); 
               //dataArray represents audioBuffer
               let freq = autoCorrelate(dataArray, sr);
-
               if(isPitchDetectionEnabled){
                 //if gameStarted is true and note detected within frequency 
                 if(started && typeof currentNoteString[freqRangeHigh] === 'number' && typeof currentNoteString[freqRangeLow] === 'number' && (freq <= currentNoteString[freqRangeHigh] && freq >= currentNoteString[freqRangeLow])){
@@ -119,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function setDifficult(){
         if(difficultyWindow !== null) difficultyWindow.style.display = 'initial';
-
     }
 
     function setSettings(){
@@ -176,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function endGame(){
-        //setScoreWindow(); 
+        setScoreWindow(); 
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
         if(yourScoreText !== null) yourScoreText.innerHTML=`Your Score: ${score}`;
@@ -220,7 +218,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function enterPracticeMode(){
-
         playGame();
     }
 

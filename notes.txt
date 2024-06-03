@@ -1,3 +1,3 @@
-In competitive mode bring back score display 
-
 Begin researching database postgres where leaderboard data will be stored eventually need to integrate this
+
+Unit testing research maybe go with jest.. learn about testing 

@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scoreWindow.style.display = 'none';
     }
     function endGame() {
-        //setScoreWindow(); 
+        setScoreWindow();
         clearInterval(clearTimer); //end the local timer 
         //report score to user 
         if (yourScoreText !== null)
