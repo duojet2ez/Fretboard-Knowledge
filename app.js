@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const express = require('express');
 const path = require('path');
 const { Client, Pool } = require('pg');
+require('dotenv').config();
 const app = express();
 const pool = new Pool();
 function connectAndQuery() {
@@ -21,7 +22,7 @@ function connectAndQuery() {
             // Execute your queries here
             const res = yield client.query('SELECT NOW()');
             console.log(res.rows[0]);
-            console.log('wow this is cool');
+            console.log('wow');
             yield client.end();
         }
         catch (error) {

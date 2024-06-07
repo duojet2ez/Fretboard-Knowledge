@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { Client, Pool } = require('pg'); 
+require('dotenv').config(); 
 const app = express();
 
 const pool = new Pool();
@@ -14,6 +15,7 @@ async function connectAndQuery() {
     // Execute your queries here
     const res = await client.query('SELECT NOW()');
     console.log(res.rows[0]);
+    console.log('wow');
 
     await client.end();
   } catch (error) {
