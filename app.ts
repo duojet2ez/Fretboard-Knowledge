@@ -4,9 +4,8 @@ const { Client, Pool } = require('pg');
 require('dotenv').config(); 
 const app = express();
 
-const pool = new Pool();
 
-
+/*
 async function connectAndQuery() {
   try {
     const client = new Client();
@@ -24,6 +23,8 @@ async function connectAndQuery() {
 }
 
 connectAndQuery();
+
+*/
 
 // Use the port provided by Heroku, or fallback to a default port
 const port = process.env.PORT || 3000;
