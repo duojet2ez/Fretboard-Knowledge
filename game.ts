@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function(){
     const globalTimerToDisable: HTMLElement | null = document.getElementById('disableGameTimer');
     const removeScoreSetting: HTMLElement | null = document.getElementById('removeScore');
     const submitLeaderB1: HTMLElement | null = document.getElementById('submit_leader');
+    const submitLeaderB2: HTMLElement | null = document.getElementById('submit_leaderboard_b2');
+
 
 
     let isPitchDetectionEnabled: boolean = true;
@@ -307,6 +309,10 @@ document.addEventListener('DOMContentLoaded', function(){
         if(submissionWindowScoreText !== null) submissionWindowScoreText.innerHTML=`Your Score: ${score}`;
     }
 
+    function submitToLeaderboardB2(){
+        console.log('wow');
+    }
+
     increment?.addEventListener('click', function(){
         if(started){
             //increment update score in html 
@@ -349,6 +355,8 @@ document.addEventListener('DOMContentLoaded', function(){
     competitiveMode?.addEventListener('click', enterCompetitiveMode);
     practiceMode?.addEventListener('click', enterPracticeMode);
     submitLeaderB1?.addEventListener('click', submitToLeaderboardB1); 
+    submitLeaderB2?.addEventListener('click', submitToLeaderboardB2); 
+
     
     //settings
     timePerNoteInput?.addEventListener('input', timePerNoteSetting);  //detects a change in value and calls timerPerNoteSetting for every change 

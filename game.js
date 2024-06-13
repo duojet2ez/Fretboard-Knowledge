@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const globalTimerToDisable = document.getElementById('disableGameTimer');
     const removeScoreSetting = document.getElementById('removeScore');
     const submitLeaderB1 = document.getElementById('submit_leader');
+    const submitLeaderB2 = document.getElementById('submit_leaderboard_b2');
     let isPitchDetectionEnabled = true;
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
@@ -308,6 +309,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (submissionWindowScoreText !== null)
             submissionWindowScoreText.innerHTML = `Your Score: ${score}`;
     }
+    function submitToLeaderboardB2() {
+        console.log('wow');
+    }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {
             //increment update score in html 
@@ -351,6 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
     competitiveMode === null || competitiveMode === void 0 ? void 0 : competitiveMode.addEventListener('click', enterCompetitiveMode);
     practiceMode === null || practiceMode === void 0 ? void 0 : practiceMode.addEventListener('click', enterPracticeMode);
     submitLeaderB1 === null || submitLeaderB1 === void 0 ? void 0 : submitLeaderB1.addEventListener('click', submitToLeaderboardB1);
+    submitLeaderB2 === null || submitLeaderB2 === void 0 ? void 0 : submitLeaderB2.addEventListener('click', submitToLeaderboardB2);
     //settings
     timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.addEventListener('input', timePerNoteSetting); //detects a change in value and calls timerPerNoteSetting for every change 
     timePerGameInput === null || timePerGameInput === void 0 ? void 0 : timePerGameInput.addEventListener('input', timePerGameSetting);
