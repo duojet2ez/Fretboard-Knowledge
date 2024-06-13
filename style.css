@@ -84,6 +84,24 @@ h2{
     height: 600px;
 }
 
+.submissionWindow{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    width: 800px;
+    height: 600px;
+}
+
 .game_over {
     font-size: 50px;
     text-align: center;
@@ -91,7 +109,8 @@ h2{
     margin-top: -20px; /* Adjust this value to bring it closer to the top */
 }
 
-.score_text {
+.score_text,
+.submissionWindow_score_text {
     font-size: 30px;
     text-align: center;
     margin-top: 10px; /* Adjust this value for spacing between "Game Over!" and "Your Score:" */

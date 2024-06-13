@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const text = document.getElementById('text');
     const globalClock = document.getElementById('global-clock');
     const scoreWindow = document.querySelector('.window');
+    const submissionWindow = document.querySelector('.submissionWindow');
+    const submissionWindowScoreText = document.querySelector('.submissionWindow_score_text');
     const yourScoreText = document.querySelector('.score_text');
     const playAgain = document.getElementById('pAgain');
     const play = document.getElementById('play');
@@ -48,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const localTimeClockToDisable = document.getElementById('localTimeClock');
     const globalTimerToDisable = document.getElementById('disableGameTimer');
     const removeScoreSetting = document.getElementById('removeScore');
+    const submitLeaderB1 = document.getElementById('submit_leader');
     let isPitchDetectionEnabled = true;
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
@@ -298,6 +301,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
+    function submitToLeaderboardB1() {
+        removeScoreWindow();
+        if (submissionWindow !== null)
+            submissionWindow.style.display = 'flex';
+        if (submissionWindowScoreText !== null)
+            submissionWindowScoreText.innerHTML = `Your Score: ${score}`;
+    }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {
             //increment update score in html 
@@ -340,6 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButtonDifficulty === null || submitButtonDifficulty === void 0 ? void 0 : submitButtonDifficulty.addEventListener('click', saveDifficultySettings);
     competitiveMode === null || competitiveMode === void 0 ? void 0 : competitiveMode.addEventListener('click', enterCompetitiveMode);
     practiceMode === null || practiceMode === void 0 ? void 0 : practiceMode.addEventListener('click', enterPracticeMode);
+    submitLeaderB1 === null || submitLeaderB1 === void 0 ? void 0 : submitLeaderB1.addEventListener('click', submitToLeaderboardB1);
     //settings
     timePerNoteInput === null || timePerNoteInput === void 0 ? void 0 : timePerNoteInput.addEventListener('input', timePerNoteSetting); //detects a change in value and calls timerPerNoteSetting for every change 
     timePerGameInput === null || timePerGameInput === void 0 ? void 0 : timePerGameInput.addEventListener('input', timePerGameSetting);

@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function(){
     const text: HTMLElement | null = document.getElementById('text'); 
     const globalClock: HTMLElement | null = document.getElementById('global-clock');
     const scoreWindow: HTMLElement | null = document.querySelector('.window');
+    const submissionWindow: HTMLElement | null = document.querySelector('.submissionWindow');
+    const submissionWindowScoreText: HTMLElement | null = document.querySelector('.submissionWindow_score_text');
     const yourScoreText: HTMLElement | null = document.querySelector('.score_text'); 
     const playAgain: HTMLElement | null = document.getElementById('pAgain');
     const play: HTMLElement | null = document.getElementById('play');
@@ -50,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function(){
     const localTimeClockToDisable: HTMLElement | null = document.getElementById('localTimeClock');
     const globalTimerToDisable: HTMLElement | null = document.getElementById('disableGameTimer');
     const removeScoreSetting: HTMLElement | null = document.getElementById('removeScore');
+    const submitLeaderB1: HTMLElement | null = document.getElementById('submit_leader');
+
 
     let isPitchDetectionEnabled: boolean = true;
     const freqRangeLow: number = 2;
@@ -297,6 +301,12 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
 
+    function submitToLeaderboardB1(){
+        removeScoreWindow(); 
+        if(submissionWindow !== null) submissionWindow.style.display = 'flex';
+        if(submissionWindowScoreText !== null) submissionWindowScoreText.innerHTML=`Your Score: ${score}`;
+    }
+
     increment?.addEventListener('click', function(){
         if(started){
             //increment update score in html 
@@ -338,6 +348,7 @@ document.addEventListener('DOMContentLoaded', function(){
     submitButtonDifficulty?.addEventListener('click', saveDifficultySettings);
     competitiveMode?.addEventListener('click', enterCompetitiveMode);
     practiceMode?.addEventListener('click', enterPracticeMode);
+    submitLeaderB1?.addEventListener('click', submitToLeaderboardB1); 
     
     //settings
     timePerNoteInput?.addEventListener('input', timePerNoteSetting);  //detects a change in value and calls timerPerNoteSetting for every change 
