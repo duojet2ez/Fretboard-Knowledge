@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { autoCorrelate } from "./autoCorrelationAlgo.js";
 document.addEventListener('DOMContentLoaded', function () {
     var _a;
@@ -52,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const removeScoreSetting = document.getElementById('removeScore');
     const submitLeaderB1 = document.getElementById('submit_leader');
     const submitLeaderB2 = document.getElementById('submit_leaderboard_b2');
+    const userName = document.getElementById('name');
     let isPitchDetectionEnabled = true;
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
@@ -310,7 +320,32 @@ document.addEventListener('DOMContentLoaded', function () {
             submissionWindowScoreText.innerHTML = `Your Score: ${score}`;
     }
     function submitToLeaderboardB2() {
-        console.log('wow');
+        return __awaiter(this, void 0, void 0, function* () {
+            let name = "";
+            if (userName instanceof HTMLInputElement)
+                name = userName.value;
+            const obj = {
+                userName: name,
+                userScore: score
+            };
+            try {
+                const response = yield fetch('http://localhost:3000/leaderboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(obj)
+                });
+                if (response.ok) {
+                    console.log('Data sent successfully');
+                }
+                else
+                    console.error('Error sending data:', response.statusText);
+            }
+            catch (error) {
+                console.error('Error sending data:', error);
+            }
+        });
     }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {
         if (started) {

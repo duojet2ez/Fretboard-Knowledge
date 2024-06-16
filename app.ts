@@ -31,6 +31,14 @@ const port = process.env.PORT || 3000;
 
 // Serve static files from the root directory
 app.use(express.static(path.join(__dirname)));
+//need this to parse json req body
+app.use(express.json()); 
+
+app.post('/leaderboard', (req, res) => {
+  const name = req.body.userName;
+  const score = req.body.userScore;
+  console.log(`the user name is: ${name} and the user score is ${score}`); 
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

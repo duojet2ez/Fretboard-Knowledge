@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const removeScoreSetting: HTMLElement | null = document.getElementById('removeScore');
     const submitLeaderB1: HTMLElement | null = document.getElementById('submit_leader');
     const submitLeaderB2: HTMLElement | null = document.getElementById('submit_leaderboard_b2');
+    const userName: HTMLElement | null = document.getElementById('name');
 
 
 
@@ -309,8 +310,28 @@ document.addEventListener('DOMContentLoaded', function(){
         if(submissionWindowScoreText !== null) submissionWindowScoreText.innerHTML=`Your Score: ${score}`;
     }
 
-    function submitToLeaderboardB2(){
-        console.log('wow');
+    async function submitToLeaderboardB2(){
+        let name: string = "";
+        if(userName instanceof HTMLInputElement) name = userName.value;
+        const obj = {
+            userName: name,
+            userScore: score
+        };
+        try{
+            const response = await fetch('http://localhost:3000/leaderboard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            });
+            if(response.ok){
+                console.log('Data sent successfully'); 
+            }
+            else console.error('Error sending data:', response.statusText);
+        }catch(error){
+            console.error('Error sending data:', error);
+        }
     }
 
     increment?.addEventListener('click', function(){
