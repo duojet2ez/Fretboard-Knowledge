@@ -341,7 +341,6 @@ document.addEventListener('DOMContentLoaded', function(){
             if(scoreElement !== null) scoreElement.innerHTML = score.toString();
             nextNoteAndResetTime(); 
         }
-        
     });
 
     playAgain?.addEventListener('click', () => {

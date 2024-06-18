@@ -1,39 +1,43 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const express = require('express');
 const path = require('path');
 const { Client, Pool } = require('pg');
 require('dotenv').config();
 const app = express();
-/*
-async function connectAndQuery() {
-  try {
-    const client = new Client();
-    await client.connect();
-
-    // Execute your queries here
-    const res = await client.query('SELECT NOW()');
-    console.log(res.rows[0]);
-    console.log('wow');
-
-    await client.end();
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-connectAndQuery();
-
-*/
+const client = new Client();
+client.connect();
 // Use the port provided by Heroku, or fallback to a default port
 const port = process.env.PORT || 3000;
 // Serve static files from the root directory
 app.use(express.static(path.join(__dirname)));
+//need this to parse json req body
 app.use(express.json());
-app.post('/leaderboard', (req, res) => {
+app.post('/leaderboard', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const name = req.body.userName;
     const score = req.body.userScore;
-    console.log(`the user name is: ${name} and the user score is ${score}`);
-});
+    const query = `
+  INSERT INTO leaderboard (name, score)
+  VALUES ($1, $2)
+`;
+    const values = [name, score];
+    client.query(query, values, (err, result) => {
+        if (err) {
+            console.log('Error executing', err);
+        }
+        else {
+            console.log('Name and score inserted into database');
+        }
+    });
+}));
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
