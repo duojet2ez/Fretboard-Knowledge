@@ -8,7 +8,6 @@ const client = new Client();
 client.connect(); 
 
 
-
 // Use the port provided by Heroku, or fallback to a default port
 const port = process.env.PORT || 3000;
 
@@ -25,7 +24,7 @@ app.post('/leaderboard', async (req, res) => {
   VALUES ($1, $2)
 `;
   const values = [name, score]; 
-  client.query(query, values, (err, result) => {
+  await client.query(query, values, (err, result) => {
     if(err){
       console.log('Error executing', err);
     }
@@ -33,7 +32,6 @@ app.post('/leaderboard', async (req, res) => {
       console.log('Name and score inserted into database'); 
     }
   });
-
 });
 
 app.listen(port, () => {

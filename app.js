@@ -29,7 +29,7 @@ app.post('/leaderboard', (req, res) => __awaiter(void 0, void 0, void 0, functio
   VALUES ($1, $2)
 `;
     const values = [name, score];
-    client.query(query, values, (err, result) => {
+    yield client.query(query, values, (err, result) => {
         if (err) {
             console.log('Error executing', err);
         }
