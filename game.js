@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const globalClock = document.getElementById('global-clock');
     const scoreWindow = document.querySelector('.window');
     const submissionWindow = document.querySelector('.submissionWindow');
+    const leaderboardWindow = document.querySelector('.leaderboard');
     const submissionWindowScoreText = document.querySelector('.submissionWindow_score_text');
     const yourScoreText = document.querySelector('.score_text');
     const playAgain = document.getElementById('pAgain');
@@ -345,7 +346,10 @@ document.addEventListener('DOMContentLoaded', function () {
             catch (error) {
                 console.error('Error sending data:', error);
             }
-            //const fetchedLeaderboard = await fetch('http://localhost:3000/leaderboard');  i don't think i need this line of code 
+            if (submissionWindow !== null)
+                submissionWindow.style.display = 'none';
+            if (leaderboardWindow !== null)
+                leaderboardWindow.style.display = 'flex';
         });
     }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {

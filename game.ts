@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const globalClock: HTMLElement | null = document.getElementById('global-clock');
     const scoreWindow: HTMLElement | null = document.querySelector('.window');
     const submissionWindow: HTMLElement | null = document.querySelector('.submissionWindow');
+    const leaderboardWindow : HTMLElement | null = document.querySelector('.leaderboard'); 
     const submissionWindowScoreText: HTMLElement | null = document.querySelector('.submissionWindow_score_text');
     const yourScoreText: HTMLElement | null = document.querySelector('.score_text'); 
     const playAgain: HTMLElement | null = document.getElementById('pAgain');
@@ -330,7 +331,8 @@ document.addEventListener('DOMContentLoaded', function(){
         }catch(error){
             console.error('Error sending data:', error);
         }
-        
+        if(submissionWindow !== null) submissionWindow.style.display = 'none';
+        if(leaderboardWindow !== null) leaderboardWindow.style.display = 'flex';
     }
 
     increment?.addEventListener('click', function(){
