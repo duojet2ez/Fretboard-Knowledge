@@ -345,6 +345,7 @@ document.addEventListener('DOMContentLoaded', function () {
             catch (error) {
                 console.error('Error sending data:', error);
             }
+            //const fetchedLeaderboard = await fetch('http://localhost:3000/leaderboard');  i don't think i need this line of code 
         });
     }
     increment === null || increment === void 0 ? void 0 : increment.addEventListener('click', function () {

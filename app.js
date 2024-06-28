@@ -37,7 +37,20 @@ app.post('/leaderboard', (req, res) => __awaiter(void 0, void 0, void 0, functio
             console.log('Name and score inserted into database');
         }
     });
+    const selectQuery = `
+    SELECT name, score
+    FROM leaderboard
+    ORDER BY score DESC
+    `;
+    const result = yield client.query(selectQuery);
+    const leaderboardData = result.rows;
+    res.json(leaderboardData);
 }));
+app.get('/leaderboard', (req, res) => {
+    console.log('get request received');
+    //is this right to handle get request from client???
+    res.send('Hello from the leaderbard route');
+});
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });

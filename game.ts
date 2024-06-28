@@ -271,7 +271,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 wasGlobalTimerDisabled = false;
             }
         }
-
     }
     function removeScore(e){
         if(e.target.value === "yes"){
@@ -286,7 +285,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 scoreText.style.display = 'initial';
             }
         }
-
     }
 
     function disablePitchDetectionSetting(e){
@@ -332,6 +330,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }catch(error){
             console.error('Error sending data:', error);
         }
+        
     }
 
     increment?.addEventListener('click', function(){
