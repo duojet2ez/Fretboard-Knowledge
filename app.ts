@@ -37,18 +37,12 @@ app.post('/leaderboard', async (req, res) => {
     SELECT name, score
     FROM leaderboard
     ORDER BY score DESC
+    LIMIT 10
     `;
     const result = await client.query(selectQuery);
     const leaderboardData = result.rows;
     res.json(leaderboardData);
 });
-
-app.get('/leaderboard', (req, res) => {
-  console.log('get request received');
-  //is this right to handle get request from client???
-  res.send('Hello from the leaderbard route'); 
-
-})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

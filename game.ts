@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const submitLeaderB1: HTMLElement | null = document.getElementById('submit_leader');
     const submitLeaderB2: HTMLElement | null = document.getElementById('submit_leaderboard_b2');
     const userName: HTMLElement | null = document.getElementById('name');
+    const userTable: HTMLElement | null = document.getElementById('userTable');
 
 
 
@@ -326,6 +327,19 @@ document.addEventListener('DOMContentLoaded', function(){
             });
             if(response.ok){
                 console.log('Data sent successfully'); 
+                const userData: {name: string, score: string}[] = await response.json();
+                userData.forEach(user => {
+                    const row: HTMLTableRowElement = document.createElement('tr'); 
+
+                    const nameCell: HTMLTableCellElement = document.createElement('td');
+                    nameCell.textContent = user.name;
+                    row.appendChild(nameCell);
+
+                    const scoreCell: HTMLTableCellElement = document.createElement('td'); 
+                    scoreCell.textContent = user.score; 
+                    row.appendChild(scoreCell); 
+                    userTable?.appendChild(row); 
+                });
             }
             else console.error('Error sending data:', response.statusText);
         }catch(error){

@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitLeaderB1 = document.getElementById('submit_leader');
     const submitLeaderB2 = document.getElementById('submit_leaderboard_b2');
     const userName = document.getElementById('name');
+    const userTable = document.getElementById('userTable');
     let isPitchDetectionEnabled = true;
     const freqRangeLow = 2;
     const freqRangeHigh = 3;
@@ -339,6 +340,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 if (response.ok) {
                     console.log('Data sent successfully');
+                    const userData = yield response.json();
+                    userData.forEach(user => {
+                        const row = document.createElement('tr');
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = user.name;
+                        row.appendChild(nameCell);
+                        const scoreCell = document.createElement('td');
+                        scoreCell.textContent = user.score;
+                        row.appendChild(scoreCell);
+                        userTable === null || userTable === void 0 ? void 0 : userTable.appendChild(row);
+                    });
                 }
                 else
                     console.error('Error sending data:', response.statusText);
