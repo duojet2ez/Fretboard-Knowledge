@@ -13,7 +13,12 @@ const path = require('path');
 const { Client, Pool } = require('pg');
 require('dotenv').config();
 const app = express();
-const client = new Client();
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 client.connect();
 // Use the port provided by Heroku, or fallback to a default port
 const port = process.env.PORT || 3000;
