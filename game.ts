@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let score: number; 
     let setTimerVal: number = timePerNote;
     let timerVal: number = setTimerVal; 
-    let setGlobalClockVal: number = 3;
+    let setGlobalClockVal: number = 10;
     let globalClockVal = setGlobalClockVal; 
     let started: boolean = false; 
     let clearTimer: NodeJS.Timeout; 
